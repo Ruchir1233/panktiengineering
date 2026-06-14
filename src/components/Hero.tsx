@@ -7,22 +7,27 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 z-10"></div>
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('/lovable-uploads/homeimage.png')`
-        }}
+        style={{ backgroundImage: `url('/lovable-uploads/homeimage.png')` }}
       ></div>
       <div className="container mx-auto px-4 relative z-20 text-white">
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/40 rounded-full px-4 py-2 mb-6">
             <span className="text-orange-400 text-sm font-semibold uppercase tracking-widest">Est. 2016 · Valsad, Gujarat</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
-            QUALITY IRON<br />
-            <span className="text-orange-500">&amp; MS</span><br />
-            FABRICATION
+
+          {/* SEO H1 - keyword rich */}
+          <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">
+            IRON & MS<br />
+            <span className="text-orange-500">FABRICATION</span><br />
+            IN VALSAD
           </h1>
-          <p className="text-xl mb-8 text-gray-300 max-w-xl">
-            Trusted craftsmanship for gates, railings, boundary walls, and industrial fabrication — serving Valsad since 1984.
+
+          {/* SEO supporting text */}
+          <p className="text-lg mb-3 text-gray-300 max-w-2xl">
+            Gates · Window Grills · Staircase Railings · Roofing Sheds · Rolling Shutters · Boundary Walls · Industrial Sheds
+          </p>
+          <p className="text-base mb-8 text-gray-400 max-w-xl">
+            Serving Valsad, Vapi, Navsari & surrounding Gujarat since 2016. Quality iron and MS fabrication at honest prices.
           </p>
 
           {/* Google Rating Badge */}
@@ -33,10 +38,7 @@ const Hero = () => {
                 <span className="text-2xl font-bold text-white">5.0</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`w-4 h-4 ${i < 5 ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
-                    />
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
                 <span className="text-gray-400 text-sm">(72 reviews)</span>
@@ -52,15 +54,15 @@ const Hero = () => {
           </div>
 
           <div className="flex flex-wrap gap-4">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-xl">
-              <Phone className="w-5 h-5 mr-2" />
-              Call Us Now
-            </Button>
+            <a href="tel:+919879523937">
+              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-xl">
+                <Phone className="w-5 h-5 mr-2" />
+                Call Us Now
+              </Button>
+            </a>
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/60">
         <span className="text-xs uppercase tracking-widest">Scroll</span>
         <div className="w-px h-8 bg-white/40 animate-pulse"></div>

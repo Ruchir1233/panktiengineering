@@ -2,10 +2,24 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const allServices = [
   {
+    id: "window-grills",
+    image: "/services/window-grill.svg",
+    title: "Window Grills",
+    description: "Stylish and secure iron window grills in plain or decorative patterns — custom sized and fitted on-site.",
+    tag: null,
+  },
+  {
+    id: "roofing-sheds",
+    image: "/services/roofing-shed.svg",
+    title: "Roofing Sheds",
+    description: "Durable MS frame roofing sheds for homes, factories, car parking, and industrial warehouses.",
+    tag: null,
+  },
+  {
     id: "gates",
     image: "/lovable-uploads/gate.jpg",
     title: "Gates",
-    description: "Custom iron gates for homes, offices, and factories. Designed for beauty, strength, and long-term security.",
+    description: "Custom iron gates for homes, offices, and factories. Designed for beauty, strength, and security.",
     tag: "Most Popular",
   },
   {
@@ -23,24 +37,10 @@ const allServices = [
     tag: null,
   },
   {
-    id: "roofing-sheds",
-    image: "/services/roofing-shed.svg",
-    title: "Roofing Sheds",
-    description: "Durable MS frame roofing sheds for homes, factories, car parking, and industrial warehouses.",
-    tag: null,
-  },
-  {
     id: "rolling-shutters",
     image: "/services/rolling-shutter.svg",
     title: "Rolling Shutters",
     description: "Heavy-duty iron rolling shutters for shops, showrooms, garages, and industrial units.",
-    tag: null,
-  },
-  {
-    id: "iron-grills",
-    image: "/services/iron-grill.svg",
-    title: "Iron Grills",
-    description: "Custom window and door iron grills in standard or decorative designs, powder-coated for long life.",
     tag: null,
   },
   {
@@ -57,13 +57,6 @@ const allServices = [
     description: "Any iron or MS fabrication work — tanks, platforms, supports, furniture, and structural metalwork.",
     tag: null,
   },
-  {
-    id: "window-grills",
-    image: "/services/window-grill.svg",
-    title: "Window Grills",
-    description: "Stylish and secure iron window grills in plain or decorative patterns — sized and fitted on-site.",
-    tag: null,
-  },
 ];
 
 const Services = () => {
@@ -76,11 +69,11 @@ const Services = () => {
             Our Fabrication Services
           </h2>
           <p className="text-gray-500 mt-4 max-w-xl mx-auto">
-            From elegant residential gates to heavy-duty industrial structures — we fabricate it all with precision.
+            From window grills and gates to industrial sheds — quality iron and MS fabrication across Valsad, Gujarat.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {allServices.map((service) => (
             <Card
               key={service.id}
@@ -95,12 +88,12 @@ const Services = () => {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-extrabold mb-2 text-gray-900">{service.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{service.description}</p>
+              <CardContent className="p-5">
+                <h3 className="text-base font-extrabold mb-1.5 text-gray-900">{service.title}</h3>
+                <p className="text-gray-500 text-xs leading-relaxed">{service.description}</p>
               </CardContent>
             </Card>
           ))}

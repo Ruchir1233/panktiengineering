@@ -1,71 +1,211 @@
 <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="hwall" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FFF9C4"/>
-      <stop offset="100%" stop-color="#FFF3E0"/>
+    <linearGradient id="brickwall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C4856A"/>
+      <stop offset="100%" stop-color="#A0522D"/>
     </linearGradient>
+    <linearGradient id="frame_grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6D4C41"/>
+      <stop offset="100%" stop-color="#4E342E"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B3E5FC" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#81D4FA" stop-opacity="0.4"/>
+    </linearGradient>
+    <linearGradient id="bar_v" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#424242"/>
+      <stop offset="30%" stop-color="#757575"/>
+      <stop offset="50%" stop-color="#9E9E9E"/>
+      <stop offset="70%" stop-color="#757575"/>
+      <stop offset="100%" stop-color="#424242"/>
+    </linearGradient>
+    <linearGradient id="bar_h" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#616161"/>
+      <stop offset="40%" stop-color="#9E9E9E"/>
+      <stop offset="60%" stop-color="#757575"/>
+      <stop offset="100%" stop-color="#424242"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#00000066"/>
+    </filter>
   </defs>
-  <rect width="800" height="500" fill="url(#hwall)"/>
-  <!-- House wall texture -->
-  <rect x="0" y="0" width="800" height="500" fill="#FFF9C4" opacity="0.8"/>
-  <!-- Two windows side by side -->
-  <!-- Left window frame -->
-  <rect x="80" y="80" width="280" height="360" fill="#5D4037" rx="6"/>
-  <rect x="92" y="92" width="256" height="336" fill="#B3E5FC" opacity="0.5"/>
-  <!-- Left window grill - decorative pattern -->
-  <!-- Vertical bars -->
-  <rect x="100" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="130" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="160" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="190" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="220" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="250" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="280" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="330" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <!-- Horizontal bars -->
-  <rect x="100" y="110" width="240" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="100" y="175" width="240" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="100" y="240" width="240" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="100" y="305" width="240" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="100" y="370" width="240" height="8" fill="#1B1B1B" rx="2"/>
-  <!-- Decorative circles at intersections -->
-  <circle cx="134" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="164" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="194" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="224" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="254" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="134" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="164" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="194" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="224" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <circle cx="254" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
-  <!-- Right window frame -->
-  <rect x="440" y="80" width="280" height="360" fill="#5D4037" rx="6"/>
-  <rect x="452" y="92" width="256" height="336" fill="#B3E5FC" opacity="0.5"/>
-  <!-- Right window grill - simpler elegant pattern -->
-  <rect x="460" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="500" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="540" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="580" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="620" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="660" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="700" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
-  <rect x="460" y="110" width="250" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="460" y="175" width="250" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="460" y="240" width="250" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="460" y="305" width="250" height="8" fill="#1B1B1B" rx="2"/>
-  <rect x="460" y="370" width="250" height="8" fill="#1B1B1B" rx="2"/>
-  <!-- Diamond decorations right window -->
-  <polygon points="504,175 512,183 504,191 496,183" fill="#212121"/>
-  <polygon points="544,175 552,183 544,191 536,183" fill="#212121"/>
-  <polygon points="584,175 592,183 584,191 576,183" fill="#212121"/>
-  <polygon points="624,175 632,183 624,191 616,183" fill="#212121"/>
-  <polygon points="504,240 512,248 504,256 496,248" fill="#212121"/>
-  <polygon points="544,240 552,248 544,256 536,248" fill="#212121"/>
-  <polygon points="584,240 592,248 584,256 576,248" fill="#212121"/>
-  <polygon points="624,240 632,248 624,256 616,248" fill="#212121"/>
+
+  <!-- Brick wall background -->
+  <rect width="800" height="500" fill="#B07050"/>
+
+  <!-- Brick rows - realistic pattern -->
+  <!-- Row 1 -->
+  <rect x="0" y="0" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="97" y="0" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="194" y="0" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="291" y="0" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="388" y="0" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="485" y="0" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="582" y="0" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="679" y="0" width="121" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <!-- Row 2 (offset) -->
+  <rect x="-48" y="40" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="49" y="40" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="146" y="40" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="243" y="40" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="340" y="40" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="437" y="40" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="534" y="40" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="631" y="40" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <rect x="728" y="40" width="72" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2" rx="1"/>
+  <!-- More rows abbreviated -->
+  <rect x="0" y="80" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="97" y="80" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="194" y="80" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="291" y="80" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="388" y="80" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="485" y="80" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="582" y="80" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="679" y="80" width="121" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <!-- Repeat for lower rows - cover full wall behind window -->
+  <rect x="-48" y="120" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="49" y="120" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="146" y="120" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="243" y="120" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="340" y="120" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="437" y="120" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="534" y="120" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="631" y="120" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="728" y="120" width="72" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="0" y="160" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="97" y="160" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="194" y="160" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="388" y="160" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="485" y="160" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="582" y="160" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="679" y="160" width="121" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="-48" y="200" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="49" y="200" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="534" y="200" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="631" y="200" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="728" y="200" width="72" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="0" y="240" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="97" y="240" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="194" y="240" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="388" y="240" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="485" y="240" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="582" y="240" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="679" y="240" width="121" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="-48" y="280" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="49" y="280" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="534" y="280" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="631" y="280" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="728" y="280" width="72" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="0" y="320" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="97" y="320" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="194" y="320" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="291" y="320" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="388" y="320" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="485" y="320" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="582" y="320" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="679" y="320" width="121" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="-48" y="360" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="49" y="360" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="146" y="360" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="243" y="360" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="340" y="360" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="437" y="360" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="534" y="360" width="95" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="631" y="360" width="95" height="38" fill="#C4856A" stroke="#8B5E3C" stroke-width="2"/>
+  <rect x="728" y="360" width="72" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <rect x="0" y="400" width="800" height="38" fill="#BE7E62" stroke="#8B5E3C" stroke-width="2"/>
+
+  <!-- Window outer frame (concrete surround) -->
+  <rect x="155" y="60" width="490" height="360" fill="#D7CCC8" rx="3" filter="url(#shadow)"/>
+
+  <!-- Window frame (wooden/painted) -->
+  <rect x="170" y="75" width="460" height="330" fill="url(#frame_grad)" rx="4"/>
+
+  <!-- Glass panes -->
+  <rect x="185" y="90" width="210" height="300" fill="url(#glass)" rx="2"/>
+  <rect x="405" y="90" width="210" height="300" fill="url(#glass)" rx="2"/>
+
+  <!-- Center mullion -->
+  <rect x="393" y="90" width="14" height="300" fill="#5D4037"/>
+
+  <!-- === IRON GRILL OVERLAY === -->
+  <!-- Outer grill frame -->
+  <rect x="182" y="87" width="436" height="306" fill="none" stroke="#212121" stroke-width="6" rx="2" filter="url(#shadow)"/>
+
+  <!-- Vertical bars LEFT pane - with 3D gradient -->
+  <rect x="212" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="245" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="278" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="311" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="344" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="377" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+
+  <!-- Vertical bars RIGHT pane -->
+  <rect x="420" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="453" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="486" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="519" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="552" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+  <rect x="585" y="90" width="9" height="300" fill="url(#bar_v)" rx="1"/>
+
+  <!-- Horizontal bars - full width -->
+  <rect x="185" y="148" width="430" height="9" fill="url(#bar_h)" rx="1"/>
+  <rect x="185" y="208" width="430" height="9" fill="url(#bar_h)" rx="1"/>
+  <rect x="185" y="268" width="430" height="9" fill="url(#bar_h)" rx="1"/>
+  <rect x="185" y="328" width="430" height="9" fill="url(#bar_h)" rx="1"/>
+
+  <!-- Decorative scrolls at intersections (LEFT pane) -->
+  <!-- Row 1 decorations -->
+  <circle cx="216" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="249" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="282" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="315" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="348" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="381" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <!-- Row 2 -->
+  <circle cx="216" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="249" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="282" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="315" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="348" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="381" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <!-- Row 3 -->
+  <circle cx="216" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="249" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="282" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="315" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="348" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="381" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+
+  <!-- Decorative scrolls (RIGHT pane) -->
+  <circle cx="424" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="457" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="490" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="523" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="556" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="589" cy="152" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="424" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="457" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="490" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="523" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="556" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="589" cy="212" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="424" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="457" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="490" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="523" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="556" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+  <circle cx="589" cy="272" r="6" fill="none" stroke="#424242" stroke-width="2.5"/>
+
   <!-- Label -->
-  <rect x="0" y="440" width="800" height="60" fill="#2E7D32" opacity="0.92"/>
+  <rect x="0" y="440" width="800" height="60" fill="#2E7D32" opacity="0.93"/>
   <text x="400" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">WINDOW GRILLS</text>
-  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#C8E6C9">Plain &amp; Decorative Patterns · Powder Coated · Custom Fitted</text>
+  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#C8E6C9">Iron Bar Grills · Decorative Patterns · Powder Coated · Custom Fitted</text>
 </svg>
