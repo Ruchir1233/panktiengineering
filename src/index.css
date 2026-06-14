@@ -39,3 +39,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hide any injected third-party widgets (Lovable, GPTEngineer, etc.) */
+#lovable-badge,
+#gptengineer-badge,
+[data-lovable],
+[data-gptengineer],
+iframe[src*="lovable"],
+iframe[src*="gpteng"],
+div[class*="lovable"],
+div[id*="lovable"],
+div[class*="gptengineer"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

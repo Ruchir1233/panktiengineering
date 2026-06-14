@@ -21,7 +21,6 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Home</Link>
-            <Link to="/#services" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Services</Link>
             <Link to="/about" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">About Us</Link>
             <Link to="/contact" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Contact</Link>
             <Button className="bg-orange-500 hover:bg-orange-600 rounded-xl px-5">
@@ -43,7 +42,6 @@ const Navbar = () => {
         {menuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-gray-100 pt-4">
             <Link to="/" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Home</Link>
-            <Link to="/#services" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Services</Link>
             <Link to="/about" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">About Us</Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Contact</Link>
             <Button className="w-full bg-orange-500 hover:bg-orange-600 rounded-xl">
