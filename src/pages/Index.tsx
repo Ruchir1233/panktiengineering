@@ -1,10 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
+import WhyUs from "@/components/WhyUs";
 import AboutUs from "@/components/AboutUs";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
-import { ImageGallery } from "@/components/ImageGallery";
 
 const Index = () => {
   return (
@@ -12,7 +12,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Services />
-      {/* <ImageGallery /> */}
+      <WhyUs />
       <AboutUs />
       <Testimonials />
       <Footer />
