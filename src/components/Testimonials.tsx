@@ -51,8 +51,8 @@ const reviews = [
   },
 ];
 
-const OVERALL_RATING = 4.8;
-const TOTAL_REVIEWS = 24;
+const OVERALL_RATING = 5.0;
+const TOTAL_REVIEWS = 72;
 
 const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) => {
   const starClass = size === "lg" ? "w-6 h-6" : "w-4 h-4";

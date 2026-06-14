@@ -30,7 +30,7 @@ const Hero = () => {
             <div className="flex flex-col">
               <span className="text-xs text-gray-400 uppercase tracking-wider">Google Rating</span>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-white">4.8</span>
+                <span className="text-2xl font-bold text-white">5.0</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -39,7 +39,7 @@ const Hero = () => {
                     />
                   ))}
                 </div>
-                <span className="text-gray-400 text-sm">(24 reviews)</span>
+                <span className="text-gray-400 text-sm">(72 reviews)</span>
               </div>
             </div>
             <div className="h-10 w-px bg-white/20"></div>

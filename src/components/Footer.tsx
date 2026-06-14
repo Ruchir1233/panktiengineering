@@ -8,9 +8,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-black text-lg">PE</span>
-              </div>
+              <img src="/logo.png" alt="Pankti Engineering Logo" className="w-10 h-10 object-contain" />
               <div>
                 <div className="font-extrabold text-white leading-none">Pankti Engineering</div>
                 <div className="text-orange-500 text-xs tracking-widest uppercase">Since 1984</div>
@@ -34,8 +32,8 @@ const Footer = () => {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
               <div>
-                <div className="text-white text-xs font-semibold">⭐ 4.8 / 5 on Google</div>
-                <div className="text-gray-400 text-xs">24 reviews · View on Maps</div>
+                <div className="text-white text-xs font-semibold">⭐ 5.0 / 5 on Google</div>
+                <div className="text-gray-400 text-xs">72 reviews · View on Maps</div>
               </div>
               <ExternalLink className="w-3 h-3 text-gray-500 ml-1" />
             </a>
