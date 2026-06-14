@@ -8,8 +8,8 @@ const reasons = [
   },
   {
     icon: Hammer,
-    title: "40+ Years Experience",
-    desc: "Serving Valsad since 1984. Decades of hands-on craftsmanship in iron and steel work."
+    title: "9+ Years Experience",
+    desc: "Serving Valsad since 2016. Years of hands-on craftsmanship in iron and steel fabrication work."
   },
   {
     icon: IndianRupee,

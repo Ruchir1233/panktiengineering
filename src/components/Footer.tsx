@@ -11,7 +11,7 @@ const Footer = () => {
               <img src="/logo.png" alt="Pankti Engineering Logo" className="w-10 h-10 object-contain" />
               <div>
                 <div className="font-extrabold text-white leading-none">Pankti Engineering</div>
-                <div className="text-orange-500 text-xs tracking-widest uppercase">Since 1984</div>
+                <div className="text-orange-500 text-xs tracking-widest uppercase">Since 2016</div>
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">

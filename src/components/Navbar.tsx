@@ -14,7 +14,7 @@ const Navbar = () => {
             <img src="/logo.png" alt="Pankti Engineering Logo" className="w-10 h-10 object-contain" />
             <div>
               <span className="text-xl font-extrabold text-gray-900 leading-none block">Pankti Engineering</span>
-              <span className="text-xs text-orange-500 font-semibold tracking-widest uppercase">Since 1984</span>
+              <span className="text-xs text-orange-500 font-semibold tracking-widest uppercase">Since 2016</span>
             </div>
           </Link>
 

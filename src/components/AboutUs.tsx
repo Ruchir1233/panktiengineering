@@ -1,9 +1,9 @@
 import { Award, Clock, Users, Wrench } from "lucide-react";
 
 const stats = [
-  { icon: Clock, label: "Years in Business", value: "40+" },
-  { icon: Users, label: "Happy Clients", value: "500+" },
-  { icon: Wrench, label: "Projects Completed", value: "1000+" },
+  { icon: Clock, label: "Years in Business", value: "9+" },
+  { icon: Users, label: "Happy Clients", value: "150+" },
+  { icon: Wrench, label: "Projects Completed", value: "300+" },
   { icon: Award, label: "Quality Assured", value: "100%" },
 ];
 
@@ -20,7 +20,7 @@ const AboutUs = () => {
               <span className="text-orange-500">Fabrication Experts</span>
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-6">
-              Pankti Engineering is a trusted name in metal fabrication, proudly serving the people of Valsad and surrounding Gujarat since 1984. For over four decades, we have been the go-to workshop for quality iron and steel work — from custom gates and railings to industrial sheds and boundary walls.
+              Pankti Engineering is a trusted name in metal fabrication, proudly serving the people of Valsad and surrounding Gujarat since 2016. For nearly a decade, we have been the go-to workshop for quality iron and steel work — from custom gates and railings to industrial sheds and boundary walls.
             </p>
             <p className="text-gray-400 leading-relaxed mb-8">
               Every project passes through our strict quality checks — from material selection and structural integrity to galvanization and finishing. We use only the best grade iron and steel to ensure lasting durability in the Gujarat climate.

@@ -77,7 +77,16 @@ const Testimonials = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <span className="text-orange-500 font-semibold uppercase tracking-widest text-sm mb-3 block">Customer Reviews</span>
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">What Our Clients Say</h2>
+          <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
+            <a
+              href="https://share.google/vJzqng6O1HGMQAg5R"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-orange-500 transition-colors"
+            >
+              What Our Clients Say ↗
+            </a>
+          </h2>
 
           {/* Google Rating Summary */}
           <div className="inline-flex items-center gap-6 bg-white border border-gray-200 rounded-2xl px-8 py-5 shadow-sm mt-4">

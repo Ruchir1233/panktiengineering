@@ -27,12 +27,12 @@ const services = [
 ];
 
 const moreServices = [
-  "Roofing Sheds",
-  "Rolling Shutters",
-  "Iron Grills",
-  "Industrial Sheds",
-  "Custom Fabrication",
-  "Window Grills",
+  { label: "Roofing Sheds", id: "roofing-sheds" },
+  { label: "Rolling Shutters", id: "rolling-shutters" },
+  { label: "Iron Grills", id: "iron-grills" },
+  { label: "Industrial Sheds", id: "industrial-sheds" },
+  { label: "Custom Fabrication", id: "custom-fabrication" },
+  { label: "Window Grills", id: "window-grills" },
 ];
 
 const Services = () => {
@@ -83,12 +83,13 @@ const Services = () => {
           <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Also Available</h3>
           <div className="flex flex-wrap gap-3">
             {moreServices.map((s) => (
-              <span
-                key={s}
-                className="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-medium hover:border-orange-400 hover:text-orange-500 transition-colors cursor-default"
+              <Link
+                key={s.id}
+                to={`/services/${s.id}`}
+                className="bg-white border border-gray-200 text-gray-700 px-4 py-2 rounded-xl text-sm font-medium hover:border-orange-400 hover:text-orange-500 transition-colors"
               >
-                {s}
-              </span>
+                {s.label}
+              </Link>
             ))}
           </div>
         </div>

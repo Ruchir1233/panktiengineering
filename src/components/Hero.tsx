@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-20 text-white">
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-orange-500/20 border border-orange-500/40 rounded-full px-4 py-2 mb-6">
-            <span className="text-orange-400 text-sm font-semibold uppercase tracking-widest">Est. 1984 · Valsad, Gujarat</span>
+            <span className="text-orange-400 text-sm font-semibold uppercase tracking-widest">Est. 2016 · Valsad, Gujarat</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 leading-tight">
             QUALITY IRON<br />
