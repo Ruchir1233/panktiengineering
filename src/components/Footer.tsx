@@ -15,7 +15,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Valsad's most trusted iron and steel fabrication workshop. Quality work, honest pricing.
+              Valsad's most trusted iron & MS fabrication workshop. Quality work, honest pricing.
             </p>
 
             {/* Google Rating in footer */}
