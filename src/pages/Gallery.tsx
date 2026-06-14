@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, X, ChevronLeft, ChevronRight, ImageOff, Loader2 } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const API_KEY = "AIzaSyB9y6kFT35Jy4IPdgBVun9BvVhoQch7ugE";
 const ROOT_FOLDER_ID = "1SmkcpvFQCqUACxPPEZs1xKd5Y2GTCbLx";
@@ -50,10 +51,18 @@ const WaIcon = () => (
   </svg>
 );
 
+// URL slug helpers
+const toSlug = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
+const fromSlug = (slug: string) => SERVICES.find(s => toSlug(s.name) === slug)?.name ?? null;
+
 export default function Gallery() {
+  const { service: serviceSlug } = useParams<{ service?: string }>();
+  const navigate = useNavigate();
+
+  const activeService = serviceSlug ? fromSlug(serviceSlug) : null;
+
   const [folderMap, setFolderMap]     = useState<FolderMap>({});
   const [folderError, setFolderError] = useState("");
-  const [activeService, setActive]    = useState<string | null>(null);
   const [photos, setPhotos]           = useState<Photo[]>([]);
   const [photoError, setPhotoError]   = useState("");
   const [loading, setLoading]         = useState(false);
@@ -63,17 +72,21 @@ export default function Gallery() {
     getFolderMap().then(setFolderMap).catch(e => setFolderError(e.message));
   }, []);
 
-  const openService = useCallback(async (name: string) => {
-    setActive(name); setPhotos([]); setPhotoError("");
-    const fid = folderMap[name];
-    if (!fid) { setPhotoError(`Folder "${name}" not found in Drive. Make sure the sub-folder name matches exactly and is shared publicly.`); return; }
+  // Load photos whenever URL service slug or folderMap changes
+  useEffect(() => {
+    if (!activeService || Object.keys(folderMap).length === 0) return;
+    const fid = folderMap[activeService];
+    setPhotos([]); setPhotoError("");
+    if (!fid) { setPhotoError(`Folder "${activeService}" not found in Drive. Make sure the sub-folder name matches exactly and is shared publicly.`); return; }
     setLoading(true);
-    try { setPhotos(await getPhotos(fid)); }
-    catch (e: unknown) { setPhotoError(e instanceof Error ? e.message : "Failed to load photos"); }
-    finally { setLoading(false); }
-  }, [folderMap]);
+    getPhotos(fid)
+      .then(setPhotos)
+      .catch(e => setPhotoError(e instanceof Error ? e.message : "Failed to load photos"))
+      .finally(() => setLoading(false));
+  }, [activeService, folderMap]);
 
-  const goBack = () => { setActive(null); setPhotos([]); setPhotoError(""); };
+  const openService = (name: string) => { setLbIdx(null); navigate(`/gallery/${toSlug(name)}`); };
+  const goBack = () => navigate("/gallery");
   const prev = useCallback(() => setLbIdx(i => i !== null ? (i - 1 + photos.length) % photos.length : 0), [photos.length]);
   const next = useCallback(() => setLbIdx(i => i !== null ? (i + 1) % photos.length : 0), [photos.length]);
 
