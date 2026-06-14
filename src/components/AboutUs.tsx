@@ -47,7 +47,7 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Service areas - good for local SEO -->}
+        {/* Service areas */}
         <div className="mt-16 pt-12 border-t border-white/10">
           <p className="text-gray-500 text-sm uppercase tracking-widest mb-5 text-center">Areas We Serve</p>
           <div className="flex flex-wrap justify-center gap-3">
