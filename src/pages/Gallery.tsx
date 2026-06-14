@@ -115,12 +115,11 @@ export default function Gallery() {
             </button>
           )}
           <div className="g-brand">
-            {/* White logo via CSS filter */}
+            {/* Logo — using the same icon as the browser tab */}
             <img
-              src="/logo.png"
+              src="/favicon.ico"
               alt="Pankti Engineering"
               className="g-logo"
-              style={{ filter: "brightness(0) invert(1)" }}
             />
             <div>
               <div className="g-bname">Pankti Engineering</div>
