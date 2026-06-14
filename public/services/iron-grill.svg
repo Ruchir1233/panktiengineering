@@ -1,0 +1,45 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#FFF8E1"/>
+  <!-- Window wall -->
+  <rect x="150" y="60" width="500" height="380" fill="#EFEBE9" rx="6"/>
+  <!-- Window frame outer -->
+  <rect x="180" y="100" width="440" height="300" fill="#5D4037" rx="4"/>
+  <!-- Window glass -->
+  <rect x="195" y="115" width="410" height="270" fill="#B3E5FC" opacity="0.7"/>
+  <!-- Interior view through glass -->
+  <rect x="195" y="115" width="410" height="270" fill="#E3F2FD" opacity="0.5"/>
+  <!-- IRON GRILL overlay -->
+  <!-- Vertical bars -->
+  <rect x="210" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="248" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="286" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="324" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="362" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="400" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="438" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="476" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="514" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="552" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <rect x="590" y="120" width="10" height="260" fill="#212121" rx="2"/>
+  <!-- Horizontal bars -->
+  <rect x="210" y="130" width="392" height="10" fill="#212121" rx="2"/>
+  <rect x="210" y="185" width="392" height="10" fill="#212121" rx="2"/>
+  <rect x="210" y="240" width="392" height="10" fill="#212121" rx="2"/>
+  <rect x="210" y="295" width="392" height="10" fill="#212121" rx="2"/>
+  <rect x="210" y="350" width="392" height="10" fill="#212121" rx="2"/>
+  <!-- Decorative diamonds at intersections -->
+  <polygon points="215,188 225,195 215,202 205,195" fill="#37474F"/>
+  <polygon points="253,188 263,195 253,202 243,195" fill="#37474F"/>
+  <polygon points="291,188 301,195 291,202 281,195" fill="#37474F"/>
+  <polygon points="329,188 339,195 329,202 319,195" fill="#37474F"/>
+  <polygon points="367,188 377,195 367,202 357,195" fill="#37474F"/>
+  <polygon points="405,188 415,195 405,202 395,195" fill="#37474F"/>
+  <polygon points="443,188 453,195 443,202 433,195" fill="#37474F"/>
+  <polygon points="481,188 491,195 481,202 471,195" fill="#37474F"/>
+  <polygon points="519,188 529,195 519,202 509,195" fill="#37474F"/>
+  <polygon points="557,188 567,195 557,202 547,195" fill="#37474F"/>
+  <!-- Label -->
+  <rect x="0" y="440" width="800" height="60" fill="#E65100" opacity="0.92"/>
+  <text x="400" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">IRON GRILLS</text>
+  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#FFE0CC">Window &amp; Door Grills · Standard &amp; Decorative · Powder Coated</text>
+</svg>

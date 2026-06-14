@@ -1,0 +1,71 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hwall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF9C4"/>
+      <stop offset="100%" stop-color="#FFF3E0"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#hwall)"/>
+  <!-- House wall texture -->
+  <rect x="0" y="0" width="800" height="500" fill="#FFF9C4" opacity="0.8"/>
+  <!-- Two windows side by side -->
+  <!-- Left window frame -->
+  <rect x="80" y="80" width="280" height="360" fill="#5D4037" rx="6"/>
+  <rect x="92" y="92" width="256" height="336" fill="#B3E5FC" opacity="0.5"/>
+  <!-- Left window grill - decorative pattern -->
+  <!-- Vertical bars -->
+  <rect x="100" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="130" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="160" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="190" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="220" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="250" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="280" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="330" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <!-- Horizontal bars -->
+  <rect x="100" y="110" width="240" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="100" y="175" width="240" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="100" y="240" width="240" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="100" y="305" width="240" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="100" y="370" width="240" height="8" fill="#1B1B1B" rx="2"/>
+  <!-- Decorative circles at intersections -->
+  <circle cx="134" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="164" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="194" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="224" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="254" cy="179" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="134" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="164" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="194" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="224" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <circle cx="254" cy="244" r="7" fill="none" stroke="#333" stroke-width="3"/>
+  <!-- Right window frame -->
+  <rect x="440" y="80" width="280" height="360" fill="#5D4037" rx="6"/>
+  <rect x="452" y="92" width="256" height="336" fill="#B3E5FC" opacity="0.5"/>
+  <!-- Right window grill - simpler elegant pattern -->
+  <rect x="460" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="500" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="540" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="580" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="620" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="660" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="700" y="97" width="8" height="326" fill="#1B1B1B" rx="2"/>
+  <rect x="460" y="110" width="250" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="460" y="175" width="250" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="460" y="240" width="250" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="460" y="305" width="250" height="8" fill="#1B1B1B" rx="2"/>
+  <rect x="460" y="370" width="250" height="8" fill="#1B1B1B" rx="2"/>
+  <!-- Diamond decorations right window -->
+  <polygon points="504,175 512,183 504,191 496,183" fill="#212121"/>
+  <polygon points="544,175 552,183 544,191 536,183" fill="#212121"/>
+  <polygon points="584,175 592,183 584,191 576,183" fill="#212121"/>
+  <polygon points="624,175 632,183 624,191 616,183" fill="#212121"/>
+  <polygon points="504,240 512,248 504,256 496,248" fill="#212121"/>
+  <polygon points="544,240 552,248 544,256 536,248" fill="#212121"/>
+  <polygon points="584,240 592,248 584,256 576,248" fill="#212121"/>
+  <polygon points="624,240 632,248 624,256 616,248" fill="#212121"/>
+  <!-- Label -->
+  <rect x="0" y="440" width="800" height="60" fill="#2E7D32" opacity="0.92"/>
+  <text x="400" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">WINDOW GRILLS</text>
+  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#C8E6C9">Plain &amp; Decorative Patterns · Powder Coated · Custom Fitted</text>
+</svg>

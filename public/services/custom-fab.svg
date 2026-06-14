@@ -1,0 +1,45 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#263238"/>
+  <!-- Workshop floor -->
+  <rect x="0" y="340" width="800" height="160" fill="#37474F"/>
+  <rect x="0" y="340" width="800" height="6" fill="#455A64"/>
+  <!-- Workbench -->
+  <rect x="80" y="260" width="640" height="80" fill="#4A4A4A" rx="4"/>
+  <rect x="80" y="260" width="640" height="12" fill="#5D5D5D" rx="4"/>
+  <!-- Metal pieces on bench -->
+  <rect x="110" y="235" width="120" height="28" fill="#90A4AE" rx="2"/>
+  <rect x="115" y="230" width="110" height="8" fill="#B0BEC5" rx="1"/>
+  <rect x="260" y="220" width="80" height="44" fill="#78909C" rx="2"/>
+  <rect x="380" y="230" width="150" height="32" fill="#607D8B" rx="2"/>
+  <!-- I-beam cross section -->
+  <rect x="560" y="215" width="100" height="10" fill="#90A4AE"/>
+  <rect x="595" y="225" width="30" height="40" fill="#90A4AE"/>
+  <rect x="560" y="265" width="100" height="10" fill="#90A4AE"/>
+  <!-- Welding sparks effect -->
+  <circle cx="370" cy="210" r="3" fill="#FF8F00"/>
+  <circle cx="382" cy="200" r="2" fill="#FFB300"/>
+  <circle cx="358" cy="205" r="2" fill="#FFCA28"/>
+  <circle cx="390" cy="215" r="1.5" fill="#FF8F00"/>
+  <circle cx="365" cy="195" r="1.5" fill="#FFF176"/>
+  <circle cx="375" cy="218" r="2.5" fill="#FFB300"/>
+  <!-- Welding torch -->
+  <rect x="320" y="200" width="55" height="12" fill="#616161" rx="3" transform="rotate(-25 320 200)"/>
+  <circle cx="370" cy="210" r="6" fill="#FF6F00" opacity="0.8"/>
+  <!-- Tools on wall -->
+  <rect x="650" y="80" width="8" height="120" fill="#546E7A"/>
+  <rect x="668" y="100" width="8" height="100" fill="#546E7A"/>
+  <rect x="686" y="90" width="8" height="110" fill="#546E7A"/>
+  <!-- Angle grinder -->
+  <ellipse cx="200" cy="310" rx="35" ry="18" fill="#424242"/>
+  <rect x="170" y="308" width="60" height="8" fill="#616161" rx="4"/>
+  <!-- MS pipes stacked -->
+  <ellipse cx="580" cy="330" rx="30" ry="10" fill="#607D8B"/>
+  <rect x="550" y="320" width="60" height="12" fill="#546E7A"/>
+  <ellipse cx="580" cy="320" rx="30" ry="10" fill="#607D8B"/>
+  <rect x="550" y="310" width="60" height="12" fill="#546E7A"/>
+  <ellipse cx="580" cy="310" rx="30" ry="10" fill="#78909C"/>
+  <!-- Label -->
+  <rect x="0" y="440" width="800" height="60" fill="#E65100" opacity="0.92"/>
+  <text x="400" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">CUSTOM FABRICATION</text>
+  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#FFE0CC">MS Tanks · Platforms · Structural Metalwork · Any Custom Project</text>
+</svg>

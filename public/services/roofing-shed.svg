@@ -1,0 +1,60 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#E0F4FF"/>
+    </linearGradient>
+    <linearGradient id="shed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#B0BEC5"/>
+      <stop offset="100%" stop-color="#78909C"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A5D6A7"/>
+      <stop offset="100%" stop-color="#66BB6A"/>
+    </linearGradient>
+  </defs>
+  <!-- Sky background -->
+  <rect width="800" height="500" fill="url(#sky)"/>
+  <!-- Ground -->
+  <rect x="0" y="380" width="800" height="120" fill="url(#floor)"/>
+  <!-- Shed body -->
+  <rect x="80" y="200" width="640" height="180" fill="#CFD8DC"/>
+  <!-- Roof panels - corrugated look -->
+  <polygon points="60,200 400,100 740,200" fill="#90A4AE"/>
+  <polygon points="60,200 400,110 740,200" fill="#B0BEC5"/>
+  <!-- Roof ridges -->
+  <line x1="60" y1="200" x2="400" y2="110" stroke="#546E7A" stroke-width="3"/>
+  <line x1="740" y1="200" x2="400" y2="110" stroke="#546E7A" stroke-width="3"/>
+  <!-- Corrugated lines on roof left -->
+  <line x1="100" y1="192" x2="370" y2="125" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="140" y1="190" x2="355" y2="128" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="180" y1="186" x2="385" y2="118" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="220" y1="182" x2="395" y2="115" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="260" y1="178" x2="398" y2="113" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="300" y1="174" x2="400" y2="111" stroke="#78909C" stroke-width="1.5"/>
+  <!-- Corrugated lines on roof right -->
+  <line x1="700" y1="192" x2="430" y2="125" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="660" y1="190" x2="445" y2="128" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="620" y1="186" x2="415" y2="118" stroke="#78909C" stroke-width="1.5"/>
+  <line x1="580" y1="182" x2="405" y2="115" stroke="#78909C" stroke-width="1.5"/>
+  <!-- MS columns -->
+  <rect x="100" y="200" width="12" height="180" fill="#546E7A"/>
+  <rect x="250" y="200" width="12" height="180" fill="#546E7A"/>
+  <rect x="400" y="200" width="12" height="180" fill="#607D8B"/>
+  <rect x="540" y="200" width="12" height="180" fill="#546E7A"/>
+  <rect x="680" y="200" width="12" height="180" fill="#546E7A"/>
+  <!-- Wall cladding -->
+  <rect x="112" y="200" width="138" height="180" fill="#ECEFF1" opacity="0.6"/>
+  <rect x="262" y="200" width="138" height="180" fill="#CFD8DC" opacity="0.6"/>
+  <rect x="412" y="200" width="128" height="180" fill="#ECEFF1" opacity="0.6"/>
+  <rect x="552" y="200" width="128" height="180" fill="#CFD8DC" opacity="0.6"/>
+  <!-- Large opening (front door area) -->
+  <rect x="310" y="270" width="180" height="110" fill="#37474F" opacity="0.7"/>
+  <rect x="315" y="275" width="170" height="100" fill="#263238" opacity="0.8"/>
+  <!-- Base beam -->
+  <rect x="80" y="375" width="640" height="8" fill="#455A64"/>
+  <!-- Label -->
+  <rect x="0" y="440" width="800" height="60" fill="#E65100" opacity="0.92"/>
+  <text x="400" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="white">ROOFING SHEDS</text>
+  <text x="400" y="492" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" fill="#FFE0CC">MS Frame · Colour Coated Sheet · Car Parking / Factory / Home</text>
+</svg>
