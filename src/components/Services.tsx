@@ -69,7 +69,7 @@ const Services = () => {
             Our Fabrication Services
           </h2>
           <p className="text-gray-500 mt-4 max-w-xl mx-auto">
-            From window grills and gates to industrial sheds — quality iron and MS fabrication across Valsad, Gujarat.
+            From window grills and gates to industrial sheds — quality iron and MS fabrication across Valsad, Vapi, Navsari and South Gujarat.
           </p>
         </div>
 

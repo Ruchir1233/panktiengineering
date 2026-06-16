@@ -15,17 +15,17 @@ const AboutUs = () => {
           <div className="text-white">
             <span className="text-orange-500 font-semibold uppercase tracking-widest text-sm mb-4 block">About Us</span>
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-              Valsad's #1 Trusted<br />
+              Valsad & Vapi's #1<br />
               <span className="text-orange-500">Iron Fabrication Workshop</span>
             </h2>
             <p className="text-gray-300 text-lg leading-relaxed mb-4">
-              <strong className="text-white">Pankti Engineering</strong> is Valsad's most trusted iron and MS fabrication workshop, serving homes, shops, and factories across Valsad, Vapi, Navsari, Umargam, Bilimora, and Dharampur since 2016.
+              <strong className="text-white">Pankti Engineering</strong> is the most trusted iron and MS fabrication workshop serving <strong className="text-white">Valsad, Vapi, Navsari, Umargam</strong> and all of South Gujarat since 2016. Whether you're in Valsad city, Vapi GIDC, or anywhere in between — we come to you for measurement and installation.
             </p>
             <p className="text-gray-400 leading-relaxed mb-4">
-              We specialize in <strong className="text-gray-300">iron gate fabrication</strong>, <strong className="text-gray-300">window grills</strong>, <strong className="text-gray-300">staircase railings</strong>, <strong className="text-gray-300">boundary walls</strong>, <strong className="text-gray-300">roofing sheds</strong>, <strong className="text-gray-300">rolling shutters</strong>, and <strong className="text-gray-300">industrial sheds</strong> — all made with top-grade mild steel (MS) and iron.
+              We specialize in <strong className="text-gray-300">iron gate fabrication</strong>, <strong className="text-gray-300">window grills</strong>, <strong className="text-gray-300">staircase railings</strong>, <strong className="text-gray-300">boundary walls</strong>, <strong className="text-gray-300">roofing sheds</strong>, <strong className="text-gray-300">rolling shutters</strong>, and <strong className="text-gray-300">industrial sheds</strong> — all made with top-grade mild steel and iron for long life in Gujarat's climate.
             </p>
             <p className="text-gray-400 leading-relaxed mb-8">
-              Every project is quality-checked from raw material selection to galvanization and finishing. With <strong className="text-gray-300">5.0 stars on Google</strong> (72 reviews) and 5.0 on JustDial (71 reviews), we are proud to be the highest-rated fabrication workshop in Valsad.
+              With <strong className="text-gray-300">5.0 stars on Google (72 reviews)</strong> and 5.0 on JustDial (71 reviews), we are the highest-rated iron fabrication workshop in the Valsad–Vapi region. <strong className="text-gray-300">Vapi clients:</strong> we are just 25 minutes away — call for a same-day site visit.
             </p>
             <div className="flex items-center gap-4">
               <div className="w-12 h-1 bg-orange-500 rounded-full"></div>
@@ -51,7 +51,7 @@ const AboutUs = () => {
         <div className="mt-16 pt-12 border-t border-white/10">
           <p className="text-gray-500 text-sm uppercase tracking-widest mb-5 text-center">Areas We Serve</p>
           <div className="flex flex-wrap justify-center gap-3">
-            {["Valsad", "Vapi", "Navsari", "Umargam", "Bilimora", "Dharampur", "Pardi", "Sanjan", "Dhamdachi", "Mograwadi"].map(city => (
+            {["Valsad", "Vapi", "Vapi GIDC", "Navsari", "Umargam", "Bilimora", "Dharampur", "Pardi", "Sanjan", "Dhamdachi", "Silvassa", "Daman"].map(city => (
               <span key={city} className="bg-white/5 border border-white/10 text-gray-300 px-4 py-2 rounded-xl text-sm">
                 {city}
               </span>

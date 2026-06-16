@@ -15,11 +15,11 @@ const Hero = () => {
             <span className="text-orange-400 text-sm font-semibold uppercase tracking-widest">Est. 2016 · Valsad, Gujarat</span>
           </div>
 
-          {/* SEO H1 - keyword rich */}
+          {/* SEO H1 - keyword rich for Valsad + Vapi */}
           <h1 className="text-5xl md:text-7xl font-extrabold mb-4 leading-tight">
             IRON & MS<br />
             <span className="text-orange-500">FABRICATION</span><br />
-            IN VALSAD
+            VALSAD · VAPI
           </h1>
 
           {/* SEO supporting text */}
@@ -27,7 +27,7 @@ const Hero = () => {
             Gates · Window Grills · Staircase Railings · Roofing Sheds · Rolling Shutters · Boundary Walls · Industrial Sheds
           </p>
           <p className="text-base mb-8 text-gray-400 max-w-xl">
-            Serving Valsad, Vapi, Navsari & surrounding Gujarat since 2016. Quality iron and MS fabrication at honest prices.
+            Serving Valsad, Vapi, Navsari, Umargam & South Gujarat since 2016
           </p>
 
           {/* Google Rating Badge */}
