@@ -11,6 +11,12 @@ import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import ServiceDetail from "./pages/ServiceDetail";
 import Gallery from "./pages/Gallery";
+import IronGates from "./pages/IronGates";
+import WindowGrills from "./pages/WindowGrills";
+import RoofingSheds from "./pages/RoofingSheds";
+import RollingShutters from "./pages/RollingShutters";
+import IronGateDesigns from "./pages/blog/IronGateDesigns";
+import ShedCostGuide from "./pages/blog/ShedCostGuide";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +34,14 @@ const App = () => (
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services/:id" element={<ServiceDetail />} />
+            {/* SEO Service Pages */}
+            <Route path="/services/iron-gates" element={<IronGates />} />
+            <Route path="/services/window-grills" element={<WindowGrills />} />
+            <Route path="/services/roofing-sheds" element={<RoofingSheds />} />
+            <Route path="/services/rolling-shutters" element={<RollingShutters />} />
+            {/* Blog */}
+            <Route path="/blog/iron-gate-design-ideas-valsad-vapi" element={<IronGateDesigns />} />
+            <Route path="/blog/roofing-shed-cost-gujarat-2025" element={<ShedCostGuide />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
