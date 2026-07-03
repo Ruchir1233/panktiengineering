@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import ServiceDetail from "./pages/ServiceDetail";
 import Gallery from "./pages/Gallery";
+import FabricationInVapi from "./pages/FabricationInVapi";
 import IronGates from "./pages/IronGates";
 import WindowGrills from "./pages/WindowGrills";
 import RoofingSheds from "./pages/RoofingSheds";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/gallery/:service" element={<Gallery />} />
+            <Route path="/fabrication-in-vapi" element={<FabricationInVapi />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/services/:id" element={<ServiceDetail />} />
