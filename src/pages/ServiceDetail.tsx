@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, CheckCircle, Phone, ArrowLeft } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -242,6 +243,14 @@ const ServiceDetail = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>{service.title} in Valsad & Vapi | Pankti Engineering</title>
+        <meta name="description" content={`${service.title} by Pankti Engineering — trusted iron & MS fabrication in Valsad and Vapi, Gujarat. ${service.subtitle}. Free quote: +91 98795-23937.`} />
+        <link rel="canonical" href={`https://www.panktiengineering.com/services/${id}`} />
+        <meta property="og:title" content={`${service.title} | Pankti Engineering Valsad & Vapi`} />
+        <meta property="og:description" content={`${service.subtitle} — Pankti Engineering, Valsad & Vapi. 5★ rated. Call +91 98795-23937.`} />
+        <meta property="og:url" content={`https://www.panktiengineering.com/services/${id}`} />
+      </Helmet>
       <Navbar />
 
       {/* Hero banner */}

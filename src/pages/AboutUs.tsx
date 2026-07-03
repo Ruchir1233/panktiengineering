@@ -1,10 +1,19 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { CheckCircle } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>About Pankti Engineering | Iron & MS Fabrication Valsad & Vapi Since 2016</title>
+        <meta name="description" content="About Pankti Engineering — Valsad & Vapi's most trusted iron and MS fabrication workshop since 2016. 5★ Google rated, 72 reviews, 150+ clients. Serving Valsad, Vapi, Navsari & South Gujarat." />
+        <link rel="canonical" href="https://www.panktiengineering.com/about" />
+        <meta property="og:title" content="About Pankti Engineering | Iron Fabrication Valsad & Vapi" />
+        <meta property="og:description" content="Valsad & Vapi's most trusted iron fabrication workshop since 2016. 5★ rated, 72 reviews." />
+        <meta property="og:url" content="https://www.panktiengineering.com/about" />
+      </Helmet>
       <Navbar />
       <div className="pt-20 bg-[#1a1a1a]">
         <div className="container mx-auto px-4 py-14">

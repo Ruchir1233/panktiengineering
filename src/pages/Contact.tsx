@@ -2,10 +2,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
+      <Helmet>
+        <title>Contact Pankti Engineering | Iron Fabrication Valsad & Vapi | +91 98795-23937</title>
+        <meta name="description" content="Contact Pankti Engineering for iron gates, window grills, roofing sheds and MS fabrication in Valsad and Vapi. Call or WhatsApp +91 98795-23937. Free site visit." />
+        <link rel="canonical" href="https://www.panktiengineering.com/contact" />
+      </Helmet>
       <Navbar />
       <div className="pt-24 pb-20">
         <div className="container mx-auto px-4">
