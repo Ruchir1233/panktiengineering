@@ -3,14 +3,14 @@ import { Card, CardContent } from "@/components/ui/card";
 const allServices = [
   {
     id: "window-grills",
-    image: "/services/window-grill.svg",
+    image: "/services/window-grill-real.jpg",
     title: "Window Grills",
     description: "Stylish and secure iron window grills in plain or decorative patterns — custom sized and fitted on-site.",
     tag: null,
   },
   {
     id: "roofing-sheds",
-    image: "/services/roofing-shed.svg",
+    image: "/services/roofing-shed-real.jpg",
     title: "Roofing Sheds",
     description: "Durable MS frame roofing sheds for homes, factories, car parking, and industrial warehouses.",
     tag: null,
@@ -38,14 +38,14 @@ const allServices = [
   },
   {
     id: "rolling-shutters",
-    image: "/services/rolling-shutter.svg",
+    image: "/services/rolling-shutter-real.jpg",
     title: "Rolling Shutters",
     description: "Heavy-duty iron rolling shutters for shops, showrooms, garages, and industrial units.",
     tag: null,
   },
   {
     id: "industrial-sheds",
-    image: "/services/industrial-shed.svg",
+    image: "/services/industrial-shed-real.jpg",
     title: "Industrial Sheds",
     description: "Heavy-duty MS structural sheds for factories, manufacturing plants, storage godowns and more.",
     tag: null,
