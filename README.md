@@ -71,3 +71,18 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Google rating and live reviews
+
+The site shows your Google rating, review count and reviews from your Google Business Profile.
+
+- **Without setup** the site shows the fallback numbers in `src/lib/business.ts` (`GOOGLE.rating`, `GOOGLE.reviewCount`) and the built-in reviews in `src/components/Testimonials.tsx`.
+- **With setup** the serverless function `api/reviews.js` fetches the real numbers and the latest reviews from Google (cached for 1 hour), and the site uses those automatically.
+
+Setup (one time):
+1. In Google Cloud Console, create a project, enable billing, and enable **Places API (New)**.
+2. Create an API key. Restrict it to the *Places API (New)* only.
+3. Find your **Place ID** (starts with `ChIJ`) with Google's Place ID Finder.
+4. In Vercel > Project > Settings > Environment Variables add `GOOGLE_PLACES_API_KEY` and `GOOGLE_PLACE_ID`, then redeploy.
+
+Notes: Google returns at most the 5 most relevant reviews. `index.html` (search-engine description and structured data) is static and still needs the numbers updated by hand. JustDial and IndiaMART numbers are manual too (`OTHER_PLATFORMS` in `src/lib/business.ts`).

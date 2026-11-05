@@ -1,4 +1,6 @@
 import { Star, Quote } from "lucide-react";
+import { GOOGLE } from "@/lib/business";
+import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 
 const reviews = [
   {
@@ -51,9 +53,6 @@ const reviews = [
   },
 ];
 
-const OVERALL_RATING = 5.0;
-const TOTAL_REVIEWS = 72;
-
 const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg" }) => {
   const starClass = size === "lg" ? "w-6 h-6" : "w-4 h-4";
   return (
@@ -70,7 +69,18 @@ const StarRating = ({ rating, size = "sm" }: { rating: number; size?: "sm" | "lg
   );
 };
 
+const initials = (name: string) =>
+  name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join("") || "G";
+
 const Testimonials = () => {
+  const google = useGoogleReviews();
+
+  // Live Google reviews when the /api/reviews endpoint is configured,
+  // otherwise the built-in reviews above.
+  const items = google.reviews
+    ? google.reviews.map((r) => ({ text: r.text, rating: r.rating, name: r.name, avatar: initials(r.name), meta: r.when }))
+    : reviews.map((r) => ({ text: r.text, rating: r.rating, name: r.name, avatar: r.avatar, meta: `${r.location} · ${r.date}` }));
+
   return (
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -79,7 +89,7 @@ const Testimonials = () => {
           <span className="text-orange-500 font-semibold uppercase tracking-widest text-sm mb-3 block">Customer Reviews</span>
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
             <a
-              href="https://share.google/vJzqng6O1HGMQAg5R"
+              href={GOOGLE.url}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-orange-500 transition-colors"
@@ -104,16 +114,16 @@ const Testimonials = () => {
             </div>
             <div className="h-10 w-px bg-gray-200"></div>
             <div className="text-center">
-              <div className="text-4xl font-extrabold text-gray-900">{OVERALL_RATING}</div>
-              <StarRating rating={5} size="sm" />
-              <div className="text-xs text-gray-500 mt-1">{TOTAL_REVIEWS} reviews</div>
+              <div className="text-4xl font-extrabold text-gray-900">{google.rating.toFixed(1)}</div>
+              <StarRating rating={Math.round(google.rating)} size="sm" />
+              <div className="text-xs text-gray-500 mt-1">{google.count} reviews</div>
             </div>
           </div>
         </div>
 
         {/* Reviews Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reviews.map((review, index) => (
+          {items.map((review, index) => (
             <div
               key={index}
               className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col"
@@ -140,7 +150,7 @@ const Testimonials = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900 text-sm">{review.name}</div>
-                  <div className="text-xs text-gray-400">{review.location} · {review.date}</div>
+                  <div className="text-xs text-gray-400">{review.meta}</div>
                 </div>
               </div>
             </div>

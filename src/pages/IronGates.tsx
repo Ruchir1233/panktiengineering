@@ -13,7 +13,7 @@ export default function IronGates() {
   return (
     <SEOPage
       title="Iron Gate Fabrication in Valsad & Vapi | Pankti Engineering"
-      metaDesc="Custom iron gates for homes, offices & factories in Valsad and Vapi. Sliding, swing & compound gates. 5★ rated. Free quote: +91 98795-23937."
+      metaDesc="Custom iron gates for homes, offices & factories in Valsad and Vapi. Sliding, swing & compound gates. 4.9★ rated. Free quote: +91 98795-23937."
       keywords="iron gate valsad, iron gate vapi, compound gate valsad, sliding gate vapi, iron gate fabrication gujarat, gate manufacturer valsad vapi, iron gate near me vapi"
       canonical="https://www.panktiengineering.com/services/iron-gates"
       h1="Custom Iron Gates in Valsad & Vapi — Built to Last"

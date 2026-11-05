@@ -13,7 +13,7 @@ export default function RoofingSheds() {
   return (
     <SEOPage
       title="Roofing Shed & Industrial Shed Contractor in Valsad, Vapi | Pankti Engineering"
-      metaDesc="MS roofing sheds & industrial sheds for homes, factories & warehouses in Valsad, Vapi, Navsari. 5★ rated contractor. Call +91 98795-23937."
+      metaDesc="MS roofing sheds & industrial sheds for homes, factories & warehouses in Valsad, Vapi, Navsari. 4.9★ rated contractor. Call +91 98795-23937."
       keywords="roofing shed valsad, industrial shed vapi, factory shed vapi gidc, MS shed contractor gujarat, warehouse shed navsari, shed fabrication south gujarat, shed contractor vapi"
       canonical="https://www.panktiengineering.com/services/roofing-sheds"
       h1="Roofing Shed & Industrial Shed Contractor in Valsad, Vapi & South Gujarat"

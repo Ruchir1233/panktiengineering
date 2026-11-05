@@ -1,11 +1,13 @@
 import { Star } from "lucide-react";
+import { GOOGLE, OTHER_PLATFORMS } from "@/lib/business";
+import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 
 const platforms = [
   {
     name: "Google",
-    rating: "5.0",
-    reviews: "72",
-    link: "https://share.google/vJzqng6O1HGMQAg5R",
+    rating: GOOGLE.rating.toFixed(1), // replaced with live value in the component
+    reviews: String(GOOGLE.reviewCount),
+    link: GOOGLE.url,
     logo: (
       <svg viewBox="0 0 24 24" className="w-7 h-7" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -19,8 +21,8 @@ const platforms = [
   },
   {
     name: "JustDial",
-    rating: "5.0",
-    reviews: "71",
+    rating: OTHER_PLATFORMS.justdial.rating,
+    reviews: OTHER_PLATFORMS.justdial.count,
     link: "https://www.justdial.com/Valsad/Pankti-Engineering-Near-Dhamdachi-Near-Gundlav-Dhamdachi/nct-10856234",
     logo: (
       <div className="w-7 h-7 bg-orange-500 rounded-full flex items-center justify-center">
@@ -32,7 +34,7 @@ const platforms = [
   },
   {
     name: "IndiaMART",
-    rating: "4.8",
+    rating: OTHER_PLATFORMS.indiamart.rating,
     reviews: "Listed",
     link: "https://www.indiamart.com/pankti-engineering-valsad/",
     logo: (
@@ -45,7 +47,9 @@ const platforms = [
   },
 ];
 
-const PlatformRatings = () => (
+const PlatformRatings = () => {
+  const google = useGoogleReviews();
+  return (
   <section className="py-12 bg-white border-b border-gray-100">
     <div className="container mx-auto px-4">
       <p className="text-center text-sm font-semibold text-gray-400 uppercase tracking-widest mb-6">
@@ -64,20 +68,21 @@ const PlatformRatings = () => (
             <div>
               <div className="text-xs text-gray-400 font-medium">{p.name}</div>
               <div className="flex items-center gap-1">
-                <span className="font-extrabold text-gray-900 text-lg">{p.rating}</span>
+                <span className="font-extrabold text-gray-900 text-lg">{p.name === "Google" ? google.rating.toFixed(1) : p.rating}</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`w-3 h-3 ${p.starsColor}`} />
                   ))}
                 </div>
               </div>
-              <div className="text-xs text-gray-400">{p.reviews} reviews</div>
+              <div className="text-xs text-gray-400">{p.name === "Google" ? google.count : p.reviews} reviews</div>
             </div>
           </a>
         ))}
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default PlatformRatings;

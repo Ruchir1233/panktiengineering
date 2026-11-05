@@ -23,3 +23,20 @@ export const whatsappLink = (message?: string): string =>
   `https://wa.me/${BUSINESS.whatsappNumber}${
     message ? `?text=${encodeURIComponent(message)}` : ""
   }`;
+
+// ---------------------------------------------------------------------------
+// Ratings.
+// GOOGLE is the fallback shown until the live /api/reviews endpoint responds
+// (or if it is not configured). Update these two numbers if you ever need to
+// by hand. Other platforms are manual: check and update them occasionally.
+// ---------------------------------------------------------------------------
+export const GOOGLE = {
+  rating: 4.9,
+  reviewCount: 76,
+  url: "https://share.google/vJzqng6O1HGMQAg5R",
+} as const;
+
+export const OTHER_PLATFORMS = {
+  justdial: { rating: "5.0", count: "71" },
+  indiamart: { rating: "4.8" },
+} as const;

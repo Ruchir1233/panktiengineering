@@ -56,7 +56,7 @@ const WaIcon = () => (
 const SEO: Record<string, { title: string; description: string; keywords: string }> = {
   default: {
     title: "Our Work Gallery | Pankti Engineering – Iron Fabrication Valsad",
-    description: "Browse completed iron and MS fabrication work by Pankti Engineering, Valsad. See real photos of gates, window grills, staircase railings, roofing sheds, rolling shutters and more. 5★ rated workshop in Valsad, Gujarat.",
+    description: "Browse completed iron and MS fabrication work by Pankti Engineering, Valsad. See real photos of gates, window grills, staircase railings, roofing sheds, rolling shutters and more. 4.9★ rated workshop in Valsad, Gujarat.",
     keywords: "iron fabrication photos valsad, pankti engineering work photos, iron gate photos valsad, MS fabrication gallery, fabrication workshop valsad gujarat",
   },
   gates: {

@@ -13,7 +13,7 @@ export default function RollingShutters() {
   return (
     <SEOPage
       title="Rolling Shutter Fabrication in Valsad & Vapi | Pankti Engineering"
-      metaDesc="Iron rolling shutters for shops, garages & factories in Valsad and Vapi. Manual, spring & motorized. 5★ rated. Call +91 98795-23937."
+      metaDesc="Iron rolling shutters for shops, garages & factories in Valsad and Vapi. Manual, spring & motorized. 4.9★ rated. Call +91 98795-23937."
       keywords="rolling shutter valsad, iron shutter vapi, shop shutter valsad, rolling shutter fabrication vapi, garage shutter gujarat, MS shutter navsari, rolling shutter near me vapi"
       canonical="https://www.panktiengineering.com/services/rolling-shutters"
       h1="Iron Rolling Shutters in Valsad & Vapi — Shops, Garages & Factories"

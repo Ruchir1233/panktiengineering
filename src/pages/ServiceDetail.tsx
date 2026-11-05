@@ -248,7 +248,7 @@ const ServiceDetail = () => {
         <meta name="description" content={`${service.title} by Pankti Engineering — trusted iron & MS fabrication in Valsad and Vapi, Gujarat. ${service.subtitle}. Free quote: +91 98795-23937.`} />
         <link rel="canonical" href={`https://www.panktiengineering.com/services/${id}`} />
         <meta property="og:title" content={`${service.title} | Pankti Engineering Valsad & Vapi`} />
-        <meta property="og:description" content={`${service.subtitle} — Pankti Engineering, Valsad & Vapi. 5★ rated. Call +91 98795-23937.`} />
+        <meta property="og:description" content={`${service.subtitle} — Pankti Engineering, Valsad & Vapi. 4.9★ rated. Call +91 98795-23937.`} />
         <meta property="og:url" content={`https://www.panktiengineering.com/services/${id}`} />
       </Helmet>
       <Navbar />
