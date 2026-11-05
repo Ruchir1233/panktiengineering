@@ -37,7 +37,7 @@ export default function FabricationInVapi() {
     "description": "Iron and MS fabrication services in Vapi, Gujarat. Iron gates, window grills, staircase railings, boundary walls, roofing sheds, rolling shutters and industrial sheds.",
     "url": "https://www.panktiengineering.com/fabrication-in-vapi",
     "telephone": "+91-9879523937",
-    "address": { "@type": "PostalAddress", "streetAddress": "Dhamdachi, Near Gundlav", "addressLocality": "Valsad", "addressRegion": "Gujarat", "postalCode": "396001", "addressCountry": "IN" },
+    "address": { "@type": "PostalAddress", "streetAddress": "Dhamdachi, Near Gundlav", "addressLocality": "Valsad", "addressRegion": "Gujarat", "postalCode": "396035", "addressCountry": "IN" },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": GOOGLE.rating.toFixed(1), "reviewCount": String(GOOGLE.reviewCount), "bestRating": "5" },
     "areaServed": ["Vapi","Vapi GIDC","Umargam","Pardi","Sanjan","Valsad"]
   };

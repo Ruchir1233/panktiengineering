@@ -11,7 +11,7 @@ export const BUSINESS = {
   hours: "Mon – Sat: 9:00 AM – 6:00 PM",
   hoursDays: "Monday - Saturday",
   hoursTime: "9:00 AM - 6:00 PM",
-  postalCode: "396001",
+  postalCode: "396035",
   foundedYear: 2016,
 } as const;
 

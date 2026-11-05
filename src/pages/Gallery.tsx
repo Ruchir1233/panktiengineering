@@ -172,7 +172,7 @@ export default function Gallery() {
         "streetAddress": "Dhamdachi, Near Gundlav",
         "addressLocality": "Valsad",
         "addressRegion": "Gujarat",
-        "postalCode": "396001",
+        "postalCode": "396035",
         "addressCountry": "IN"
       }
     }
