@@ -45,7 +45,7 @@ const Contact = () => {
                 <Clock className="w-6 h-6 text-orange-500 mt-1" />
                 <div>
                   <h3 className="font-semibold text-lg mb-2">Working Hours</h3>
-                  <p>{BUSINESS.hoursDays}<br />{BUSINESS.hoursTime}</p>
+                  <p>{BUSINESS.hoursDays}<br />{BUSINESS.hoursTime}<br />Monday closed</p>
                 </div>
               </div>
             </div>

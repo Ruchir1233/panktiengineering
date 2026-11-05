@@ -72,7 +72,7 @@ const AboutUs = () => {
             <h3 className="text-xl font-extrabold text-gray-900 mb-2">Contact Pankti Engineering</h3>
             <p className="text-gray-600 mb-1">📍 Dhamdachi, Near Gundlav, Valsad, Gujarat {BUSINESS.postalCode}</p>
             <p className="text-gray-600 mb-1">📞 <a href={`tel:${BUSINESS.phoneTel}`} className="text-orange-500 font-semibold hover:underline">{BUSINESS.phoneDisplay}</a></p>
-            <p className="text-gray-600">🕘 {BUSINESS.hoursDays.replace(" - ", " – ")}: {BUSINESS.hoursTime.replace(" - ", " – ")}</p>
+            <p className="text-gray-600">🕘 {BUSINESS.hoursDays.replace(" - ", " – ")}: {BUSINESS.hoursTime.replace(" - ", " – ")} (Monday closed)</p>
           </div>
         </div>
       </div>

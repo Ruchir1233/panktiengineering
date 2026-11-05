@@ -8,9 +8,9 @@ export const BUSINESS = {
   phoneTel: "+919879523937",
   whatsappNumber: "919879523937",
   email: "rohit4860@gmail.com",
-  hours: "Mon – Sat: 9:00 AM – 6:00 PM",
-  hoursDays: "Monday - Saturday",
-  hoursTime: "9:00 AM - 6:00 PM",
+  hours: "Tue – Sun: 9:00 AM – 5:30 PM · Monday closed",
+  hoursDays: "Tuesday - Sunday",
+  hoursTime: "9:00 AM - 5:30 PM",
   postalCode: "396035",
   foundedYear: 2016,
 } as const;
