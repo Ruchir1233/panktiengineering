@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import { yearsInBusiness, GOOGLE, OTHER_PLATFORMS } from "@/lib/business";
-import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Phone, CheckCircle, Star } from "lucide-react";
@@ -31,7 +30,6 @@ const WaIcon = () => (
 );
 
 export default function FabricationInVapi() {
-  const google = useGoogleReviews();
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -40,7 +38,7 @@ export default function FabricationInVapi() {
     "url": "https://www.panktiengineering.com/fabrication-in-vapi",
     "telephone": "+91-9879523937",
     "address": { "@type": "PostalAddress", "streetAddress": "Dhamdachi, Near Gundlav", "addressLocality": "Valsad", "addressRegion": "Gujarat", "postalCode": "396001", "addressCountry": "IN" },
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": google.rating.toFixed(1), "reviewCount": String(google.count), "bestRating": "5" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": GOOGLE.rating.toFixed(1), "reviewCount": String(GOOGLE.reviewCount), "bestRating": "5" },
     "areaServed": ["Vapi","Vapi GIDC","Umargam","Pardi","Sanjan","Valsad"]
   };
 
@@ -84,8 +82,8 @@ export default function FabricationInVapi() {
           </p>
           <div className="inline-flex items-center gap-3 bg-white/10 border border-white/20 rounded-2xl px-5 py-3 mb-8">
             <div className="flex">{[1,2,3,4,5].map(i=><Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400"/>)}</div>
-            <span className="text-white font-bold">{google.rating.toFixed(1)}</span>
-            <span className="text-gray-400 text-sm">· {google.count} Google Reviews · Top rated in Valsad–Vapi region</span>
+            <span className="text-white font-bold">{GOOGLE.rating.toFixed(1)}</span>
+            <span className="text-gray-400 text-sm">· {GOOGLE.reviewCount} Google Reviews · Top rated in Valsad–Vapi region</span>
           </div>
           <div className="flex flex-wrap gap-4">
             <a href="tel:+919879523937" className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold px-7 py-4 rounded-xl text-lg transition-colors">
@@ -104,7 +102,7 @@ export default function FabricationInVapi() {
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-1 text-white text-sm font-semibold">
             <span>✓ Free Site Visit to Vapi</span>
-            <span>✓ {google.rating.toFixed(1)}★ Google Rated · {google.count} Reviews</span>
+            <span>✓ {GOOGLE.rating.toFixed(1)}★ Google Rated · {GOOGLE.reviewCount} Reviews</span>
             <span>✓ {yearsInBusiness()} Years Experience</span>
             <span>✓ 150+ Happy Clients</span>
             <span>✓ Vapi GIDC Specialists</span>
@@ -121,7 +119,7 @@ export default function FabricationInVapi() {
             <strong>Pankti Engineering</strong> is the most trusted fabrication workshop serving Vapi, Vapi GIDC, Umargam, Pardi and Sanjan. Based in Dhamdachi, Valsad — just 20–25 minutes from Vapi — we provide complete iron and MS fabrication services including iron gate fabrication, window grills, staircase railings, boundary wall fencing, roofing sheds, rolling shutters, industrial sheds and custom MS fabrication for residential and industrial clients.
           </p>
           <p className="text-gray-600 leading-relaxed mb-4">
-            With a <strong>{google.rating.toFixed(1)} star rating on Google with {google.count} reviews</strong> and {OTHER_PLATFORMS.justdial.rating} on JustDial with {OTHER_PLATFORMS.justdial.count} ratings, we are one of the best-rated fabrication workshops in the Valsad–Vapi region. All fabrication work uses quality-grade mild steel and iron, galvanized and powder coated for long life in Gujarat's coastal climate.
+            With a <strong>{GOOGLE.rating.toFixed(1)} star rating on Google with {GOOGLE.reviewCount} reviews</strong> and {OTHER_PLATFORMS.justdial.rating} on JustDial with {OTHER_PLATFORMS.justdial.count} ratings, we are one of the best-rated fabrication workshops in the Valsad–Vapi region. All fabrication work uses quality-grade mild steel and iron, galvanized and powder coated for long life in Gujarat's coastal climate.
           </p>
           <p className="text-gray-600 leading-relaxed">
             <strong>Vapi GIDC clients:</strong> we regularly fabricate roofing sheds, industrial sheds, rolling shutters, boundary fencing and custom metalwork for factories and manufacturing units across the Vapi industrial corridor. Our team offers free site visits to Vapi — call <strong>+91 98795-23937</strong> to book a same-day visit.

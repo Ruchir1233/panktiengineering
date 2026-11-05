@@ -25,10 +25,8 @@ export const whatsappLink = (message?: string): string =>
   }`;
 
 // ---------------------------------------------------------------------------
-// Ratings.
-// GOOGLE is the fallback shown until the live /api/reviews endpoint responds
-// (or if it is not configured). Update these two numbers if you ever need to
-// by hand. Other platforms are manual: check and update them occasionally.
+// Ratings. Update by hand from the Google Business Profile when they change
+// (also in index.html). JustDial / IndiaMART are manual too.
 // ---------------------------------------------------------------------------
 export const GOOGLE = {
   rating: 4.9,

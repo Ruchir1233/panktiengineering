@@ -1,9 +1,8 @@
 import { Phone, Star } from "lucide-react";
+import { GOOGLE } from "@/lib/business";
 import { Button } from "@/components/ui/button";
-import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 
 const Hero = () => {
-  const google = useGoogleReviews();
   return (
     <section id="home" className="relative min-h-screen flex items-center pt-16">
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30 z-10"></div>
@@ -37,13 +36,13 @@ const Hero = () => {
             <div className="flex flex-col">
               <span className="text-xs text-gray-400 uppercase tracking-wider">Google Rating</span>
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-bold text-white">{google.rating.toFixed(1)}</span>
+                <span className="text-2xl font-bold text-white">{GOOGLE.rating.toFixed(1)}</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <span className="text-gray-400 text-sm">({google.count} reviews)</span>
+                <span className="text-gray-400 text-sm">({GOOGLE.reviewCount} reviews)</span>
               </div>
             </div>
             <div className="h-10 w-px bg-white/20"></div>

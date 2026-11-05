@@ -1,7 +1,6 @@
 import { MapPin, Phone, Clock, ExternalLink, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { BUSINESS, GOOGLE, whatsappLink } from "@/lib/business";
-import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 
 const footerServices = [
   { label: "Iron Gate", to: "/services/iron-gates" },
@@ -14,7 +13,6 @@ const footerServices = [
 ];
 
 const Footer = () => {
-  const google = useGoogleReviews();
   return (
     <footer className="bg-[#111111] text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
@@ -46,8 +44,8 @@ const Footer = () => {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
               </svg>
               <div>
-                <div className="text-white text-xs font-semibold">⭐ {google.rating.toFixed(1)} / 5 on Google</div>
-                <div className="text-gray-400 text-xs">{google.count} reviews · View on Maps</div>
+                <div className="text-white text-xs font-semibold">⭐ {GOOGLE.rating.toFixed(1)} / 5 on Google</div>
+                <div className="text-gray-400 text-xs">{GOOGLE.reviewCount} reviews · View on Maps</div>
               </div>
               <ExternalLink className="w-3 h-3 text-gray-500 ml-1" />
             </a>

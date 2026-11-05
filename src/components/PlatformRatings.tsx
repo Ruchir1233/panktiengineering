@@ -1,11 +1,10 @@
 import { Star } from "lucide-react";
 import { GOOGLE, OTHER_PLATFORMS } from "@/lib/business";
-import { useGoogleReviews } from "@/hooks/useGoogleReviews";
 
 const platforms = [
   {
     name: "Google",
-    rating: GOOGLE.rating.toFixed(1), // replaced with live value in the component
+    rating: GOOGLE.rating.toFixed(1),
     reviews: String(GOOGLE.reviewCount),
     link: GOOGLE.url,
     logo: (
@@ -48,7 +47,6 @@ const platforms = [
 ];
 
 const PlatformRatings = () => {
-  const google = useGoogleReviews();
   return (
   <section className="py-12 bg-white border-b border-gray-100">
     <div className="container mx-auto px-4">
@@ -68,14 +66,14 @@ const PlatformRatings = () => {
             <div>
               <div className="text-xs text-gray-400 font-medium">{p.name}</div>
               <div className="flex items-center gap-1">
-                <span className="font-extrabold text-gray-900 text-lg">{p.name === "Google" ? google.rating.toFixed(1) : p.rating}</span>
+                <span className="font-extrabold text-gray-900 text-lg">{p.rating}</span>
                 <div className="flex">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className={`w-3 h-3 ${p.starsColor}`} />
                   ))}
                 </div>
               </div>
-              <div className="text-xs text-gray-400">{p.name === "Google" ? google.count : p.reviews} reviews</div>
+              <div className="text-xs text-gray-400">{p.reviews} reviews</div>
             </div>
           </a>
         ))}
