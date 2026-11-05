@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 
 const allServices = [
@@ -75,9 +76,13 @@ const Services = () => {
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {allServices.map((service) => (
-            <Card
+            <Link
               key={service.id}
-              className="overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 group rounded-2xl cursor-default"
+              to={service.id === "gates" ? "/services/iron-gates" : `/services/${service.id}`}
+              aria-label={`${service.title} – view details`}
+            >
+            <Card
+              className="h-full overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 group rounded-2xl cursor-pointer"
             >
               <div className="relative overflow-hidden">
                 {service.tag && (
@@ -88,7 +93,7 @@ const Services = () => {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-44 object-contain bg-gray-100 group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-48 object-cover bg-gray-100 group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <CardContent className="p-5">
@@ -96,6 +101,7 @@ const Services = () => {
                 <p className="text-gray-500 text-xs leading-relaxed">{service.description}</p>
               </CardContent>
             </Card>
+            </Link>
           ))}
         </div>
       </div>

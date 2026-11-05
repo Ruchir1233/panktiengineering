@@ -55,3 +55,8 @@ div[class*="gptengineer"] {
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* Leave room for the sticky Call/WhatsApp bar on mobile */
+@media (max-width: 767px) {
+  body { padding-bottom: 72px; }
+}

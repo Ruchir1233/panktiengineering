@@ -1,4 +1,16 @@
-import { Facebook, Instagram, Linkedin, MapPin, Phone, Clock, ExternalLink } from "lucide-react";
+import { MapPin, Phone, Clock, ExternalLink, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { BUSINESS, whatsappLink } from "@/lib/business";
+
+const footerServices = [
+  { label: "Iron Gate", to: "/services/iron-gates" },
+  { label: "Boundary Wall", to: "/services/boundary-walls" },
+  { label: "Staircase Railing", to: "/services/staircase-railing" },
+  { label: "Roofing Shed", to: "/services/roofing-sheds" },
+  { label: "Rolling Shutter", to: "/services/rolling-shutters" },
+  { label: "Iron Grill", to: "/services/window-grills" },
+  { label: "Custom Fabrication", to: "/services/custom-fabrication" },
+];
 
 const Footer = () => {
   return (
@@ -43,8 +55,10 @@ const Footer = () => {
           <div>
             <h3 className="text-sm font-bold mb-5 text-orange-500 uppercase tracking-widest">Services</h3>
             <ul className="space-y-3 text-gray-400 text-sm">
-              {["Iron Gate", "Boundary Wall", "Staircase Railing", "Roofing Shed", "Rolling Shutter", "Iron Grill", "Custom Fabrication"].map(s => (
-                <li key={s} className="hover:text-orange-400 cursor-default transition-colors">{s}</li>
+              {footerServices.map(s => (
+                <li key={s.label}>
+                  <Link to={s.to} className="hover:text-orange-400 transition-colors">{s.label}</Link>
+                </li>
               ))}
             </ul>
           </div>
@@ -55,15 +69,19 @@ const Footer = () => {
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3 text-gray-400">
                 <MapPin className="w-4 h-4 text-orange-500 mt-0.5 flex-shrink-0" />
-                <span>Dhamdachi, Valsad,<br />Gujarat 396001, India</span>
+                <span>Dhamdachi, Valsad,<br />Gujarat {BUSINESS.postalCode}, India</span>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Phone className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                <a href="tel:+919879523937" className="hover:text-orange-400 transition-colors">+91 98795-23937</a>
+                <a href={`tel:${BUSINESS.phoneTel}`} className="hover:text-orange-400 transition-colors">{BUSINESS.phoneDisplay}</a>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Clock className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                <span>Mon – Sat: 10:00 AM – 6:00 PM</span>
+                <span>{BUSINESS.hours}</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <MessageCircle className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-orange-400 transition-colors">Chat on WhatsApp</a>
               </div>
             </div>
           </div>
@@ -88,18 +106,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/10">
           <div className="flex justify-between items-center flex-wrap gap-4">
-            <p className="text-gray-500 text-sm">© 2025 Pankti Engineering. All rights reserved.</p>
-            <div className="flex gap-4">
-              <a href="#" className="p-2 rounded-lg bg-white/5 hover:bg-orange-500/20 transition-colors">
-                <Facebook className="w-5 h-5 text-orange-500" />
-              </a>
-              <a href="#" className="p-2 rounded-lg bg-white/5 hover:bg-orange-500/20 transition-colors">
-                <Instagram className="w-5 h-5 text-orange-500" />
-              </a>
-              <a href="#" className="p-2 rounded-lg bg-white/5 hover:bg-orange-500/20 transition-colors">
-                <Linkedin className="w-5 h-5 text-orange-500" />
-              </a>
-            </div>
+            <p className="text-gray-500 text-sm">© {new Date().getFullYear()} Pankti Engineering. All rights reserved.</p>
           </div>
         </div>
       </div>

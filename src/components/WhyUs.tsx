@@ -1,4 +1,5 @@
 import { ShieldCheck, Hammer, ThumbsUp, IndianRupee } from "lucide-react";
+import { yearsInBusiness } from "@/lib/business";
 
 const reasons = [
   {
@@ -8,7 +9,7 @@ const reasons = [
   },
   {
     icon: Hammer,
-    title: "9+ Years Experience",
+    title: `${yearsInBusiness()} Years Experience`,
     desc: "Serving Valsad since 2016. Years of hands-on craftsmanship in iron & MS fabrication work."
   },
   {

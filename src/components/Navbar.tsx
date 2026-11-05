@@ -21,6 +21,7 @@ const Navbar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Home</Link>
+            <Link to="/gallery" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Gallery</Link>
             <Link to="/about" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">About Us</Link>
             <Link to="/contact" className="text-gray-600 hover:text-orange-500 font-medium transition-colors">Contact</Link>
             <a href="tel:+919879523937">
@@ -33,6 +34,7 @@ const Navbar = () => {
 
           {/* Mobile Hamburger */}
           <button
+            aria-label="Toggle menu"
             className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100"
             onClick={() => setMenuOpen(!menuOpen)}
           >
@@ -44,6 +46,7 @@ const Navbar = () => {
         {menuOpen && (
           <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-gray-100 pt-4">
             <Link to="/" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Home</Link>
+            <Link to="/gallery" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Gallery</Link>
             <Link to="/about" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">About Us</Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)} className="block text-gray-700 hover:text-orange-500 font-medium py-2">Contact</Link>
             <a href="tel:+919879523937">

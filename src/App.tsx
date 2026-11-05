@@ -18,6 +18,7 @@ import RoofingSheds from "./pages/RoofingSheds";
 import RollingShutters from "./pages/RollingShutters";
 import IronGateDesigns from "./pages/blog/IronGateDesigns";
 import ShedCostGuide from "./pages/blog/ShedCostGuide";
+import StickyCTA from "./components/StickyCTA";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="/blog/roofing-shed-cost-gujarat-2025" element={<ShedCostGuide />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <StickyCTA />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

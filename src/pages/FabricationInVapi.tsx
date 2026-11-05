@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { yearsInBusiness } from "@/lib/business";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Phone, CheckCircle, Star } from "lucide-react";
@@ -15,7 +16,7 @@ const services = [
 ];
 
 const faqs = [
-  { q: "Is there a good fabrication workshop near Vapi?", a: "Yes — Pankti Engineering in Dhamdachi, Valsad is just 25 minutes from Vapi and is the highest-rated iron fabrication workshop in the area with 5.0 stars on Google (72 reviews). We regularly travel to Vapi for site visits and installations. Call +91 98795-23937." },
+  { q: "Is there a good fabrication workshop near Vapi?", a: "Yes — Pankti Engineering in Dhamdachi, Valsad is just 25 minutes from Vapi and is one of the highest-rated iron fabrication workshops in the area with 5.0 stars on Google (72 reviews). We regularly travel to Vapi for site visits and installations. Call +91 98795-23937." },
   { q: "What fabrication services are available in Vapi?", a: "Pankti Engineering provides iron gate fabrication, window grills, staircase railings, boundary wall fencing, roofing sheds, rolling shutters, industrial sheds and custom MS fabrication work for clients in Vapi, Vapi GIDC, Umargam, Pardi and Sanjan." },
   { q: "Do you do fabrication work in Vapi GIDC?", a: "Yes — Vapi GIDC is one of our most active service areas. We fabricate roofing sheds, industrial sheds, rolling shutters, boundary fencing and custom metalwork for factories and manufacturing units in Vapi GIDC regularly." },
   { q: "How much does fabrication work cost in Vapi?", a: "Fabrication prices in Vapi depend on the type of work and size. Window grills start from ₹1,500, iron gates from ₹8,000, and roofing sheds from ₹35,000. Call or WhatsApp +91 98795-23937 for a free on-site quote with no obligation." },
@@ -36,7 +37,7 @@ export default function FabricationInVapi() {
     "description": "Iron and MS fabrication services in Vapi, Gujarat. Iron gates, window grills, staircase railings, boundary walls, roofing sheds, rolling shutters and industrial sheds.",
     "url": "https://www.panktiengineering.com/fabrication-in-vapi",
     "telephone": "+91-9879523937",
-    "address": { "@type": "PostalAddress", "streetAddress": "Dhamdachi, Near Gundlav", "addressLocality": "Valsad", "addressRegion": "Gujarat", "postalCode": "396035", "addressCountry": "IN" },
+    "address": { "@type": "PostalAddress", "streetAddress": "Dhamdachi, Near Gundlav", "addressLocality": "Valsad", "addressRegion": "Gujarat", "postalCode": "396001", "addressCountry": "IN" },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "72", "bestRating": "5" },
     "areaServed": ["Vapi","Vapi GIDC","Umargam","Pardi","Sanjan","Valsad"]
   };
@@ -77,7 +78,7 @@ export default function FabricationInVapi() {
             <span className="text-3xl md:text-4xl">Services in Vapi, Gujarat</span>
           </h1>
           <p className="text-gray-300 text-lg mb-8 max-w-2xl leading-relaxed">
-            Pankti Engineering is the highest-rated iron and MS fabrication workshop serving Vapi — just 25 minutes away in Valsad. Iron gates, grills, sheds, shutters and more. Free site visit across all of Vapi.
+            Pankti Engineering is a top-rated iron and MS fabrication workshop serving Vapi — just 25 minutes away in Valsad. Iron gates, grills, sheds, shutters and more. Free site visit across all of Vapi.
           </p>
           <div className="inline-flex items-center gap-3 bg-white/10 border border-white/20 rounded-2xl px-5 py-3 mb-8">
             <div className="flex">{[1,2,3,4,5].map(i=><Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400"/>)}</div>
@@ -102,7 +103,7 @@ export default function FabricationInVapi() {
           <div className="flex flex-wrap justify-center gap-x-8 gap-y-1 text-white text-sm font-semibold">
             <span>✓ Free Site Visit to Vapi</span>
             <span>✓ 5★ Google Rated · 72 Reviews</span>
-            <span>✓ 9+ Years Experience</span>
+            <span>✓ {yearsInBusiness()} Years Experience</span>
             <span>✓ 150+ Happy Clients</span>
             <span>✓ Vapi GIDC Specialists</span>
           </div>
@@ -118,7 +119,7 @@ export default function FabricationInVapi() {
             <strong>Pankti Engineering</strong> is the most trusted fabrication workshop serving Vapi, Vapi GIDC, Umargam, Pardi and Sanjan. Based in Dhamdachi, Valsad — just 20–25 minutes from Vapi — we provide complete iron and MS fabrication services including iron gate fabrication, window grills, staircase railings, boundary wall fencing, roofing sheds, rolling shutters, industrial sheds and custom MS fabrication for residential and industrial clients.
           </p>
           <p className="text-gray-600 leading-relaxed mb-4">
-            With a <strong>5.0 star rating on Google with 72 verified reviews</strong> and 5.0 on JustDial with 71 ratings, we are the highest-rated fabrication workshop in the Valsad–Vapi region. All fabrication work uses quality-grade mild steel and iron, galvanized and powder coated for long life in Gujarat's coastal climate.
+            With a <strong>5.0 star rating on Google with 72 verified reviews</strong> and 5.0 on JustDial with 71 ratings, we are one of the best-rated fabrication workshops in the Valsad–Vapi region. All fabrication work uses quality-grade mild steel and iron, galvanized and powder coated for long life in Gujarat's coastal climate.
           </p>
           <p className="text-gray-600 leading-relaxed">
             <strong>Vapi GIDC clients:</strong> we regularly fabricate roofing sheds, industrial sheds, rolling shutters, boundary fencing and custom metalwork for factories and manufacturing units across the Vapi industrial corridor. Our team offers free site visits to Vapi — call <strong>+91 98795-23937</strong> to book a same-day visit.
