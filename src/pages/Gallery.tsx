@@ -14,18 +14,19 @@ type Service = {
   slug: string;          // URL: /gallery/<slug>
   folders: string[];     // Google Drive sub-folder names that feed this card (first match wins)
   Icon: typeof DoorClosed;
+  desc: string;
 };
 
 const SERVICES: Service[] = [
-  { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed },
-  { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3 },
-  { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck },
-  { name: "Doors",             slug: "doors",              folders: ["Doors", "Door"],                                Icon: DoorOpen },
-  { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers },
-  { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence },
-  { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse },
-  { name: "Rolling Shutters",   slug: "rolling-shutters",   folders: ["Rolling Shutters"],                                   Icon: Rows3 },
-  { name: "Industrial Sheds",   slug: "industrial-sheds",   folders: ["Industrial Sheds"],                                   Icon: Factory },
+  { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed, desc: "Sliding, swing & compound gates" },
+  { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3, desc: "Plain & decorative MS grills" },
+  { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck, desc: "Rust-free stainless steel grills" },
+  { name: "Doors",             slug: "doors",              folders: ["Doors", "Door"],                                Icon: DoorOpen, desc: "Main, safety & industrial doors" },
+  { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers, desc: "Staircase, balcony & terrace" },
+  { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence, desc: "Railings & compound fencing" },
+  { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse, desc: "Home, parking & factory sheds" },
+  { name: "Rolling Shutters",   slug: "rolling-shutters",   folders: ["Rolling Shutters"],                                   Icon: Rows3, desc: "Shops, garages & factories" },
+  { name: "Industrial Sheds",   slug: "industrial-sheds",   folders: ["Industrial Sheds"],                                   Icon: Factory, desc: "PEB & conventional factory sheds" },
 ];
 
 // Old links that may still be shared / indexed
@@ -138,6 +139,7 @@ export default function Gallery() {
 
   const [folderMap, setFolderMap] = useState<FolderMap>({});
   const [folderError, setFolderError] = useState("");
+  const [covers, setCovers] = useState<Record<string, string>>(() => cached<Record<string, string>>("g_covers") || {});
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [photoError, setPhotoError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -159,6 +161,20 @@ export default function Gallery() {
       .then(setPhotos)
       .catch(e => setPhotoError(e instanceof Error ? e.message : "Failed to load photos"))
       .finally(() => setLoading(false));
+  }, [activeSvc, folderMap]);
+
+  useEffect(() => {
+    if (activeSvc || Object.keys(folderMap).length === 0) return;
+    let dead = false;
+    SERVICES.forEach(svc => {
+      const fid = folderFor(svc, folderMap);
+      if (!fid) return;
+      getPhotos(fid, 1).then(ph => {
+        if (dead || !ph[0]?.thumb) return;
+        setCovers(c => { const n = { ...c, [svc.slug]: ph[0].thumb }; store("g_covers", n); return n; });
+      }).catch(() => {});
+    });
+    return () => { dead = true; };
   }, [activeSvc, folderMap]);
 
   useEffect(() => { window.scrollTo(0, 0); }, [serviceSlug]);
@@ -283,12 +299,17 @@ export default function Gallery() {
             </div>
             <div className="g-grid">
               {SERVICES.map(s => (
-                <button key={s.slug} className="g-card" onClick={() => openService(s.slug)}>
-                  <span className="g-card-grid"/>
-                  <span className="g-card-ico"><s.Icon size={34} strokeWidth={1.6}/></span>
+                <button key={s.slug} className={"g-card" + (covers[s.slug] ? " has-photo" : "")} onClick={() => openService(s.slug)}>
+                  {covers[s.slug]
+                    ? <img className="g-card-img" src={covers[s.slug]} alt={`${s.name} by Pankti Engineering`} loading="lazy" referrerPolicy="no-referrer"/>
+                    : <><span className="g-card-grid"/><s.Icon className="g-card-bg" size={150} strokeWidth={1}/></>}
+                  <span className="g-card-ico"><s.Icon size={22} strokeWidth={1.8}/></span>
                   <span className="g-card-foot">
-                    <span className="g-clabel">{s.name}</span>
-                    <span className="g-cgo"><ArrowRight size={15}/></span>
+                    <span className="g-ctext">
+                      <span className="g-clabel">{s.name}</span>
+                      <span className="g-cdesc">{s.desc}</span>
+                    </span>
+                    <span className="g-cgo"><ArrowRight size={16}/></span>
                   </span>
                 </button>
               ))}
@@ -376,16 +397,23 @@ export default function Gallery() {
         .g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
         @media(min-width:640px){.g-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
         @media(min-width:960px){.g-grid{grid-template-columns:repeat(3,1fr);}}
-        .g-card{position:relative;aspect-ratio:1/1;border:none;padding:0;border-radius:20px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#262B33 0%,#14171C 100%);box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .18s,box-shadow .18s;text-align:left;}
-        .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.22);}
+        .g-card{position:relative;aspect-ratio:4/3;border:none;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#2A3039 0%,#14171C 100%);box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .2s,box-shadow .2s;text-align:left;display:block;width:100%;}
+        @media(max-width:639px){.g-card{aspect-ratio:1/1;}}
+        .g-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.24);}
         .g-card:active{transform:scale(.98);}
-        .g-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:#E65100;}
-        .g-card-grid{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 28px),repeating-linear-gradient(0deg,#fff 0 2px,transparent 2px 28px);}
-        .g-card-wm{position:absolute;right:-14px;top:-6px;height:70%;width:auto;opacity:.08;filter:grayscale(1) brightness(3);}
-        .g-card-ico{position:absolute;top:16px;left:16px;width:64px;height:64px;border-radius:18px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(230,81,0,.35);}
-        .g-card-foot{position:absolute;left:16px;right:14px;bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
-        .g-clabel{color:#fff;font-weight:800;font-size:17px;line-height:1.22;}
-        .g-cgo{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .g-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s;}
+        .g-card:hover .g-card-img{transform:scale(1.06);}
+        .g-card.has-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78) 100%);}
+        .g-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#E65100;z-index:3;}
+        .g-card-grid{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 24px),repeating-linear-gradient(0deg,#fff 0 2px,transparent 2px 24px);}
+        .g-card-bg{position:absolute;right:-18px;top:-10px;color:#fff;opacity:.09;}
+        .g-card-ico{position:absolute;top:12px;left:12px;z-index:2;width:40px;height:40px;border-radius:12px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(230,81,0,.4);}
+        .g-card-foot{position:absolute;left:14px;right:12px;bottom:16px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
+        .g-ctext{display:flex;flex-direction:column;gap:3px;min-width:0;}
+        .g-clabel{color:#fff;font-weight:800;font-size:16px;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.35);}
+        .g-cdesc{color:rgba(255,255,255,.72);font-size:11.5px;font-weight:500;line-height:1.3;}
+        .g-cgo{width:32px;height:32px;border-radius:50%;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;}
+        .g-card:hover .g-cgo{transform:translateX(3px);}
 
         /* PHOTOS */
         .g-photos{padding-top:18px;}
