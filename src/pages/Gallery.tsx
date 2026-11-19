@@ -132,7 +132,6 @@ export default function Gallery() {
 
   const [folderMap, setFolderMap] = useState<FolderMap>({});
   const [folderError, setFolderError] = useState("");
-  const [covers, setCovers] = useState<Record<string, string>>({});
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [photoError, setPhotoError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -143,22 +142,6 @@ export default function Gallery() {
   useEffect(() => {
     getFolderMap().then(setFolderMap).catch(e => setFolderError(e.message));
   }, []);
-
-  // Card cover = newest photo of each category (cached per visit)
-  useEffect(() => {
-    if (!Object.keys(folderMap).length) return;
-    const c = cached<Record<string, string>>("g_covers");
-    if (c) setCovers(c);
-    SERVICES.forEach(s => {
-      if (c?.[s.slug]) return;
-      const fid = folderFor(s, folderMap);
-      if (!fid) return;
-      getPhotos(fid, 1).then(p => {
-        if (!p[0]?.thumb) return;
-        setCovers(prev => { const n = { ...prev, [s.slug]: p[0].thumb }; store("g_covers", n); return n; });
-      }).catch(() => undefined);
-    });
-  }, [folderMap]);
 
   useEffect(() => {
     if (!activeSvc || Object.keys(folderMap).length === 0) return;
@@ -281,7 +264,7 @@ export default function Gallery() {
       </header>
 
       <main className="g-body">
-        {folderError && (
+        {folderError && activeSvc && (
           <div className="g-error"><strong>Could not load photos.</strong> Please check your connection and try again.</div>
         )}
 
@@ -295,11 +278,8 @@ export default function Gallery() {
             <div className="g-grid">
               {SERVICES.map(s => (
                 <button key={s.slug} className="g-card" onClick={() => openService(s.slug)}>
-                  {covers[s.slug]
-                    ? <img src={covers[s.slug]} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
-                    : <span className="g-card-ph"><s.Icon size={46} strokeWidth={1.4}/></span>}
-                  <span className="g-card-shade"/>
-                  <span className="g-card-ico"><s.Icon size={18}/></span>
+                  <span className="g-card-grid"/>
+                  <span className="g-card-ico"><s.Icon size={34} strokeWidth={1.6}/></span>
                   <span className="g-card-foot">
                     <span className="g-clabel">{s.name}</span>
                     <span className="g-cgo"><ArrowRight size={15}/></span>
@@ -390,16 +370,16 @@ export default function Gallery() {
         .g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
         @media(min-width:640px){.g-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
         @media(min-width:960px){.g-grid{grid-template-columns:repeat(4,1fr);}}
-        .g-card{position:relative;aspect-ratio:4/5;border:none;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,#2A2F38,#14171C);box-shadow:0 4px 14px rgba(0,0,0,.12);transition:transform .18s,box-shadow .18s;text-align:left;}
-        .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.2);}
+        .g-card{position:relative;aspect-ratio:1/1;border:none;padding:0;border-radius:20px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#262B33 0%,#14171C 100%);box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .18s,box-shadow .18s;text-align:left;}
+        .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.22);}
         .g-card:active{transform:scale(.98);}
-        .g-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-        .g-card-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.18);}
-        .g-card-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78) 100%);}
-        .g-card-ico{position:absolute;top:10px;left:10px;width:34px;height:34px;border-radius:10px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;}
-        .g-card-foot{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
-        .g-clabel{color:#fff;font-weight:800;font-size:15px;line-height:1.25;}
-        .g-cgo{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .g-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:#E65100;}
+        .g-card-grid{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 28px),repeating-linear-gradient(0deg,#fff 0 2px,transparent 2px 28px);}
+        .g-card-wm{position:absolute;right:-14px;top:-6px;height:70%;width:auto;opacity:.08;filter:grayscale(1) brightness(3);}
+        .g-card-ico{position:absolute;top:16px;left:16px;width:64px;height:64px;border-radius:18px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(230,81,0,.35);}
+        .g-card-foot{position:absolute;left:16px;right:14px;bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
+        .g-clabel{color:#fff;font-weight:800;font-size:17px;line-height:1.22;}
+        .g-cgo{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
         /* PHOTOS */
         .g-photos{padding-top:18px;}
