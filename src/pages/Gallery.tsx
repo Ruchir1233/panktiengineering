@@ -129,6 +129,23 @@ const SEO: Record<string, { title: string; description: string; keywords: string
 };
 
 
+// ── Line-art illustrations for the category cards ─────────
+const K = "#1A1A1A", O = "#E65100";
+const ART: Record<string, JSX.Element> = {
+  gates: <g><path d="M22 20v62M98 20v62" stroke={K} strokeWidth="5"/><path d="M30 28h60" stroke={K} strokeWidth="3.5"/><path d="M38 28v42M46 28v42M54 28v42M62 28v42M70 28v42M78 28v42M86 28v42" stroke={K} strokeWidth="3"/><path d="M30 70h60" stroke={K} strokeWidth="3.5"/><circle cx="40" cy="76" r="3.5" stroke={O} strokeWidth="3"/><circle cx="82" cy="76" r="3.5" stroke={O} strokeWidth="3"/><path d="M14 86h92" stroke={K} strokeWidth="4"/></g>,
+  "window-grills": <g><rect x="26" y="14" width="68" height="68" rx="5" stroke={K} strokeWidth="5"/><path d="M48 14v68M72 14v68M26 37h68M26 59h68" stroke={K} strokeWidth="3.5"/><path d="M60 29l11 11-11 11-11-11z" fill="#FBF8F1" stroke={O} strokeWidth="3.5"/><path d="M60 34v12M54 40h12" stroke={K} strokeWidth="3"/></g>,
+  "ss-grills": <g><rect x="22" y="26" width="64" height="58" rx="5" stroke={K} strokeWidth="5"/><path d="M43 26v58M64 26v58M22 45h64M22 65h64" stroke={K} strokeWidth="3.5"/><path d="M96 10v14M89 17h14" stroke={O} strokeWidth="4"/><path d="M100 30v8M96 34h8" stroke={O} strokeWidth="3.5"/></g>,
+  doors: <g><rect x="38" y="12" width="44" height="72" rx="3" stroke={K} strokeWidth="5"/><rect x="46" y="21" width="28" height="22" rx="2" stroke={K} strokeWidth="3.5"/><rect x="46" y="50" width="28" height="26" rx="2" stroke={K} strokeWidth="3.5"/><path d="M76 46v10" stroke={O} strokeWidth="5"/><path d="M26 86h68" stroke={K} strokeWidth="4"/></g>,
+  "staircase-railings": <g><path d="M18 86h20v-14h18v-14h18v-14h18v-14h10" stroke={K} strokeWidth="5" strokeLinejoin="round"/><path d="M28 46l60-30" stroke={O} strokeWidth="5"/><path d="M38 72V44M56 58V35M74 44V26" stroke={K} strokeWidth="3.5"/><path d="M88 16h14" stroke={K} strokeWidth="4"/></g>,
+  "railing-and-fencing": <g><path d="M30 86V32M42 86V32M54 86V32M66 86V32M78 86V32M90 86V32" stroke={K} strokeWidth="3.5"/><path d="M30 32l-4-9 4-9 4 9zM54 32l-4-9 4-9 4 9zM78 32l-4-9 4-9 4 9zM42 32l-4-9 4-9 4 9zM66 32l-4-9 4-9 4 9zM90 32l-4-9 4-9 4 9z" stroke={K} strokeWidth="3" strokeLinejoin="round"/><path d="M22 44h76M22 66h76" stroke={O} strokeWidth="5"/><path d="M16 86h88" stroke={K} strokeWidth="4"/></g>,
+  "roofing-sheds": <g><path d="M24 26v58M96 22v62" stroke={K} strokeWidth="5"/><path d="M14 30L106 18" stroke={O} strokeWidth="6"/><path d="M34 28v-4M50 26v-4M66 24v-4M82 22v-4" stroke={K} strokeWidth="3"/><rect x="40" y="56" width="32" height="28" rx="2" stroke={K} strokeWidth="4"/><path d="M40 66h32" stroke={K} strokeWidth="3"/><path d="M14 86h92" stroke={K} strokeWidth="4"/></g>,
+  "rolling-shutters": <g><rect x="30" y="12" width="60" height="14" rx="4" stroke={O} strokeWidth="5"/><path d="M36 26v58M84 26v58" stroke={K} strokeWidth="5"/><path d="M36 38h48M36 50h48M36 62h48" stroke={K} strokeWidth="3.5"/><path d="M54 76h12" stroke={K} strokeWidth="4"/><path d="M24 86h72" stroke={K} strokeWidth="4"/></g>,
+  "industrial-sheds": <g><path d="M24 84V44M96 84V44" stroke={K} strokeWidth="5"/><path d="M16 44L60 18l44 26z" stroke={O} strokeWidth="5" strokeLinejoin="round"/><path d="M60 18v26M38 31l22 13 22-13" stroke={O} strokeWidth="3.5"/><rect x="46" y="58" width="28" height="26" rx="2" stroke={K} strokeWidth="4"/><path d="M46 66h28M46 74h28" stroke={K} strokeWidth="3"/><path d="M14 86h92" stroke={K} strokeWidth="4"/></g>,
+};
+const Art = ({ slug }: { slug: string }) => (
+  <svg className="g-art" viewBox="0 0 120 100" fill="none" strokeLinecap="round" aria-hidden="true">{ART[slug]}</svg>
+);
+
 export default function Gallery() {
   const { service: serviceSlug } = useParams<{ service?: string }>();
   const navigate = useNavigate();
@@ -137,7 +154,6 @@ export default function Gallery() {
 
   const [folderMap, setFolderMap] = useState<FolderMap>({});
   const [folderError, setFolderError] = useState("");
-  const [covers, setCovers] = useState<Record<string, string>>(() => cached<Record<string, string>>("g_covers") || {});
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [photoError, setPhotoError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -161,20 +177,6 @@ export default function Gallery() {
       .then(setPhotos)
       .catch(e => setPhotoError(e instanceof Error ? e.message : "Failed to load photos"))
       .finally(() => setLoading(false));
-  }, [activeSvc, folderMap]);
-
-  useEffect(() => {
-    if (activeSvc || Object.keys(folderMap).length === 0) return;
-    let dead = false;
-    SERVICES.forEach(svc => {
-      const fid = folderFor(svc, folderMap);
-      if (!fid) return;
-      getPhotos(fid, 1).then(ph => {
-        if (dead || !ph[0]?.thumb) return;
-        setCovers(c => { const n = { ...c, [svc.slug]: ph[0].thumb }; store("g_covers", n); return n; });
-      }).catch(() => {});
-    });
-    return () => { dead = true; };
   }, [activeSvc, folderMap]);
 
   useEffect(() => { window.scrollTo(0, 0); }, [serviceSlug]);
@@ -295,20 +297,14 @@ export default function Gallery() {
           <div className="g-home">
             <div className="g-hero">
               <h1>Our Work</h1>
-              <p>Real photos of fabrication completed across Valsad, Vapi, Navsari &amp; Umargam. Tap a category to browse.</p>
+              <p>Tap a category to see photos</p>
             </div>
             <div className="g-grid">
               {SERVICES.map(s => (
-                <button key={s.slug} className={"g-card" + (covers[s.slug] ? " has-photo" : "")} onClick={() => openService(s.slug)}>
-                  {covers[s.slug]
-                    ? <img className="g-card-img" src={covers[s.slug]} alt={`${s.name} by Pankti Engineering`} loading="lazy" referrerPolicy="no-referrer"/>
-                    : <><span className="g-card-grid"/><s.Icon className="g-card-bg" size={150} strokeWidth={1}/></>}
-                  <span className="g-card-ico"><s.Icon size={22} strokeWidth={1.8}/></span>
+                <button key={s.slug} className="g-card" onClick={() => openService(s.slug)} aria-label={`${s.name} photos`}>
+                  <span className="g-card-art"><Art slug={s.slug}/></span>
                   <span className="g-card-foot">
-                    <span className="g-ctext">
-                      <span className="g-clabel">{s.name}</span>
-                      <span className="g-cdesc">{s.desc}</span>
-                    </span>
+                    <span className="g-clabel">{s.name}</span>
                     <span className="g-cgo"><ArrowRight size={16}/></span>
                   </span>
                 </button>
@@ -374,7 +370,7 @@ export default function Gallery() {
 
       <style>{`
         .g-root *{box-sizing:border-box;}
-        .g-root{min-height:100vh;min-height:100dvh;background:#F4F6F8;font-family:Inter,-apple-system,"Segoe UI",sans-serif;color:#1A1A1A;padding-bottom:84px;-webkit-tap-highlight-color:transparent;}
+        .g-root{min-height:100vh;min-height:100dvh;background:#F3F0E9;font-family:Inter,-apple-system,"Segoe UI",sans-serif;color:#1A1A1A;padding-bottom:84px;-webkit-tap-highlight-color:transparent;}
         .g-root button{font-family:inherit;}
 
         /* HEADER */
@@ -393,26 +389,20 @@ export default function Gallery() {
         /* HOME */
         .g-hero{padding:26px 4px 18px;text-align:center;}
         .g-hero h1{font-size:30px;font-weight:800;letter-spacing:-.02em;}
-        .g-hero p{margin:8px auto 0;max-width:460px;font-size:14.5px;line-height:1.55;color:#607D8B;}
+        .g-hero p{margin:6px auto 0;font-size:14px;color:#555;}
         .g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
         @media(min-width:640px){.g-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
         @media(min-width:960px){.g-grid{grid-template-columns:repeat(3,1fr);}}
-        .g-card{position:relative;aspect-ratio:4/3;border:none;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#2A3039 0%,#14171C 100%);box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .2s,box-shadow .2s;text-align:left;display:block;width:100%;}
-        @media(max-width:639px){.g-card{aspect-ratio:1/1;}}
-        .g-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.24);}
+        .g-card{display:block;width:100%;padding:0;border:1px solid #E7E2D6;border-radius:16px;overflow:hidden;cursor:pointer;background:#fff;text-align:left;box-shadow:0 1px 3px rgba(60,50,30,.06);transition:transform .2s,box-shadow .2s;}
+        .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(60,50,30,.14);}
         .g-card:active{transform:scale(.98);}
-        .g-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s;}
-        .g-card:hover .g-card-img{transform:scale(1.06);}
-        .g-card.has-photo::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78) 100%);}
-        .g-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#E65100;z-index:3;}
-        .g-card-grid{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(90deg,#fff 0 2px,transparent 2px 24px),repeating-linear-gradient(0deg,#fff 0 2px,transparent 2px 24px);}
-        .g-card-bg{position:absolute;right:-18px;top:-10px;color:#fff;opacity:.09;}
-        .g-card-ico{position:absolute;top:12px;left:12px;z-index:2;width:40px;height:40px;border-radius:12px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(230,81,0,.4);}
-        .g-card-foot{position:absolute;left:14px;right:12px;bottom:16px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
-        .g-ctext{display:flex;flex-direction:column;gap:3px;min-width:0;}
-        .g-clabel{color:#fff;font-weight:800;font-size:16px;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.35);}
-        .g-cdesc{color:rgba(255,255,255,.72);font-size:11.5px;font-weight:500;line-height:1.3;}
-        .g-cgo{width:32px;height:32px;border-radius:50%;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;}
+        .g-card-art{display:flex;align-items:center;justify-content:center;aspect-ratio:16/10;background:#FBF8F1;border-bottom:3px solid #E65100;}
+        .g-art{width:62%;max-width:210px;height:auto;transition:transform .3s;}
+        .g-card:hover .g-art{transform:scale(1.07);}
+        @media(max-width:639px){.g-card-foot{min-height:66px;padding:10px 10px 10px 14px;}.g-clabel{font-size:15px;}.g-card-art{aspect-ratio:4/3;}}
+        .g-card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 12px 12px 16px;}
+        .g-clabel{color:#1A1A1A;font-weight:800;font-size:16px;line-height:1.2;}
+        .g-cgo{width:34px;height:34px;border-radius:50%;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;}
         .g-card:hover .g-cgo{transform:translateX(3px);}
 
         /* PHOTOS */
