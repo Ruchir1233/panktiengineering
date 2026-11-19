@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   ArrowLeft, X, ChevronLeft, ChevronRight, ImageOff, Share2, Star,
-  DoorClosed, Grid3x3, Layers, Warehouse, Rows3, Factory, ShieldCheck, Fence, ArrowRight, Check,
+  DoorClosed, DoorOpen, Grid3x3, Layers, Warehouse, Rows3, Factory, ShieldCheck, Fence, ArrowRight, Check,
 } from "lucide-react";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -19,7 +19,8 @@ type Service = {
 const SERVICES: Service[] = [
   { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed },
   { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3 },
-  { name: "SS Grill & Door",    slug: "ss-grill-and-door",  folders: ["SS Grill and Door", "SS Grill & Door", "SS Grills and Doors", "SS Grill Door"], Icon: ShieldCheck },
+  { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck },
+  { name: "SS Doors",          slug: "ss-doors",           folders: ["SS Doors", "SS Door"],                                Icon: DoorOpen },
   { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers },
   { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence },
   { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse },
@@ -28,7 +29,7 @@ const SERVICES: Service[] = [
 ];
 
 // Old links that may still be shared / indexed
-const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "" };
+const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "", "ss-grill-and-door": "ss-grills" };
 
 type Photo = { id: string; name: string; thumb: string; full: string };
 type FolderMap = Record<string, string>;
@@ -111,10 +112,15 @@ const SEO: Record<string, { title: string; description: string; keywords: string
     description: "Large-span MS industrial sheds for factories and warehouses by Pankti Engineering, Valsad, Gujarat. PEB and conventional sheds. See work photos. Call +91 98795-23937.",
     keywords: "industrial shed valsad, factory shed valsad, warehouse shed valsad, PEB shed valsad, MS industrial shed gujarat, godown shed valsad, shed contractor valsad gujarat",
   },
-  "ss-grill-and-door": {
-    title: "SS Grill & Door Photos Valsad | Pankti Engineering Work Gallery",
-    description: "Stainless steel (SS) grills and doors fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free SS window grills, SS gates and doors. See work photos. Call +91 98795-23937.",
-    keywords: "SS grill valsad, stainless steel door valsad, SS gate valsad, SS window grill gujarat, stainless steel fabrication valsad, SS railing valsad",
+  "ss-grills": {
+    title: "SS Grill Photos Valsad | Pankti Engineering Work Gallery",
+    description: "Stainless steel (SS) window and balcony grills fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free, long-lasting SS grill designs. See work photos. Call +91 98795-23937.",
+    keywords: "SS grill valsad, stainless steel grill valsad, SS window grill gujarat, SS balcony grill valsad, stainless steel fabrication valsad",
+  },
+  "ss-doors": {
+    title: "SS Door Photos Valsad | Pankti Engineering Work Gallery",
+    description: "Stainless steel (SS) doors and gates fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free SS main doors, safety doors and gates. See work photos. Call +91 98795-23937.",
+    keywords: "SS door valsad, stainless steel door valsad, SS main door gujarat, SS safety door valsad, stainless steel gate valsad",
   },
   "railing-and-fencing": {
     title: "Railing & Fencing Photos Valsad | Pankti Engineering Work Gallery",
@@ -369,7 +375,7 @@ export default function Gallery() {
         .g-hero p{margin:8px auto 0;max-width:460px;font-size:14.5px;line-height:1.55;color:#607D8B;}
         .g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
         @media(min-width:640px){.g-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
-        @media(min-width:960px){.g-grid{grid-template-columns:repeat(4,1fr);}}
+        @media(min-width:960px){.g-grid{grid-template-columns:repeat(3,1fr);}}
         .g-card{position:relative;aspect-ratio:1/1;border:none;padding:0;border-radius:20px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#262B33 0%,#14171C 100%);box-shadow:0 4px 14px rgba(0,0,0,.14);transition:transform .18s,box-shadow .18s;text-align:left;}
         .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.22);}
         .g-card:active{transform:scale(.98);}
