@@ -49,8 +49,6 @@ function cached<T>(key: string): T | null {
 function store(key: string, val: unknown) { try { sessionStorage.setItem(key, JSON.stringify(val)); } catch { /* ignore */ } }
 
 async function getFolderMap(): Promise<FolderMap> {
-  const c = cached<FolderMap>("g_folders");
-  if (c && Object.keys(c).length) return c;
   const data = await driveGet(
     `https://www.googleapis.com/drive/v3/files?q='${ROOT_FOLDER_ID}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&fields=files(id,name)&pageSize=50&key=${API_KEY}`
   );
@@ -148,7 +146,9 @@ export default function Gallery() {
   const touchX = useRef<number | null>(null);
 
   useEffect(() => {
-    getFolderMap().then(setFolderMap).catch(e => setFolderError(e.message));
+    const c = cached<FolderMap>("g_folders");
+    if (c && Object.keys(c).length) setFolderMap(c);   // instant paint from cache...
+    getFolderMap().then(setFolderMap).catch(e => { if (!c) setFolderError(e.message); }); // ...then always refresh from Drive
   }, []);
 
   useEffect(() => {
