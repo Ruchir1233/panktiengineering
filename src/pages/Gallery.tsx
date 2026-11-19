@@ -1,56 +1,78 @@
-import { useState, useEffect, useCallback } from "react";
-import { ArrowLeft, X, ChevronLeft, ChevronRight, ImageOff, Loader2 } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  ArrowLeft, X, ChevronLeft, ChevronRight, ImageOff, Share2, Star,
+  DoorClosed, Grid3x3, Layers, Warehouse, Rows3, Factory, ShieldCheck, Fence, ArrowRight, Check,
+} from "lucide-react";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 const API_KEY = "AIzaSyB9y6kFT35Jy4IPdgBVun9BvVhoQch7ugE";
 const ROOT_FOLDER_ID = "1SmkcpvFQCqUACxPPEZs1xKd5Y2GTCbLx";
 
-const SERVICES = [
-  { name: "Gates",              emoji: "🚪", color: "#1565C0" },
-  { name: "Window Grills",      emoji: "🪟", color: "#2E7D32" },
-  { name: "Staircase Railings", emoji: "🏗️", color: "#6A1B9A" },
-  { name: "Roofing Sheds",      emoji: "🏠", color: "#E65100" },
-  { name: "Boundary Walls",     emoji: "🧱", color: "#4E342E" },
-  { name: "Rolling Shutters",   emoji: "🔒", color: "#37474F" },
-  { name: "Industrial Sheds",   emoji: "🏭", color: "#1B5E20" },
-  { name: "Custom Fabrication", emoji: "⚙️", color: "#880E4F" },
+type Service = {
+  name: string;          // shown on the card
+  slug: string;          // URL: /gallery/<slug>
+  folders: string[];     // Google Drive sub-folder names that feed this card (first match wins)
+  Icon: typeof DoorClosed;
+};
+
+const SERVICES: Service[] = [
+  { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed },
+  { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3 },
+  { name: "SS Grill & Door",    slug: "ss-grill-and-door",  folders: ["SS Grill and Door", "SS Grill & Door", "SS Grills and Doors", "SS Grill Door"], Icon: ShieldCheck },
+  { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers },
+  { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence },
+  { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse },
+  { name: "Rolling Shutters",   slug: "rolling-shutters",   folders: ["Rolling Shutters"],                                   Icon: Rows3 },
+  { name: "Industrial Sheds",   slug: "industrial-sheds",   folders: ["Industrial Sheds"],                                   Icon: Factory },
 ];
+
+// Old links that may still be shared / indexed
+const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "" };
 
 type Photo = { id: string; name: string; thumb: string; full: string };
 type FolderMap = Record<string, string>;
 
+const norm = (s: string) => s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]/g, "");
+
 async function driveGet(url: string) {
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`Drive API ${res.status}: ${await res.text().then(t => t.slice(0,200))}`);
+  if (!res.ok) throw new Error(`Drive API ${res.status}: ${await res.text().then(t => t.slice(0, 200))}`);
   return res.json();
 }
 
+function cached<T>(key: string): T | null {
+  try { const v = sessionStorage.getItem(key); return v ? JSON.parse(v) as T : null; } catch { return null; }
+}
+function store(key: string, val: unknown) { try { sessionStorage.setItem(key, JSON.stringify(val)); } catch { /* ignore */ } }
+
 async function getFolderMap(): Promise<FolderMap> {
+  const c = cached<FolderMap>("g_folders");
+  if (c && Object.keys(c).length) return c;
   const data = await driveGet(
     `https://www.googleapis.com/drive/v3/files?q='${ROOT_FOLDER_ID}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&fields=files(id,name)&pageSize=50&key=${API_KEY}`
   );
   const map: FolderMap = {};
-  (data.files || []).forEach((f: { id: string; name: string }) => { map[f.name] = f.id; });
+  (data.files || []).forEach((f: { id: string; name: string }) => { map[norm(f.name)] = f.id; });
+  store("g_folders", map);
   return map;
 }
 
-async function getPhotos(folderId: string): Promise<Photo[]> {
+const folderFor = (svc: Service, map: FolderMap) => {
+  for (const n of svc.folders) { const id = map[norm(n)]; if (id) return id; }
+  return null;
+};
+
+async function getPhotos(folderId: string, pageSize = 100): Promise<Photo[]> {
   const data = await driveGet(
-    `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+mimeType+contains+'image/'+and+trashed=false&fields=files(id,name,thumbnailLink)&pageSize=100&orderBy=createdTime+desc&key=${API_KEY}`
+    `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+mimeType+contains+'image/'+and+trashed=false&fields=files(id,name,thumbnailLink)&pageSize=${pageSize}&orderBy=createdTime+desc&key=${API_KEY}`
   );
   return (data.files || []).map((f: { id: string; name: string; thumbnailLink?: string }) => ({
     id: f.id, name: f.name,
-    thumb: (f.thumbnailLink || "").replace("=s220", "=s600"),
+    thumb: (f.thumbnailLink || "").replace(/=s\d+$/, "=s500"),
     full: `https://drive.google.com/thumbnail?id=${f.id}&sz=w1600`,
   }));
 }
-
-const WaIcon = () => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
-);
 
 // ── SEO metadata per service ─────────────────────────────
 const SEO: Record<string, { title: string; description: string; keywords: string }> = {
@@ -79,11 +101,6 @@ const SEO: Record<string, { title: string; description: string; keywords: string
     description: "MS frame roofing sheds for homes, car parking and factories by Pankti Engineering, Valsad, Gujarat. See completed shed photos. Colour-coated roofing sheet. Call +91 98795-23937.",
     keywords: "roofing shed valsad, MS shed valsad, car parking shed valsad, factory shed valsad, shed fabrication valsad, iron shed gujarat, shed contractor valsad",
   },
-  "boundary-walls": {
-    title: "Boundary Wall Photos Valsad | Pankti Engineering Work Gallery",
-    description: "Iron and MS boundary wall fencing by Pankti Engineering, Valsad. Grill-top compound walls, decorative fencing for homes and factories. See work photos. Call +91 98795-23937.",
-    keywords: "boundary wall valsad, compound wall valsad, iron fencing valsad, MS boundary wall gujarat, compound grill valsad, boundary wall fabrication valsad",
-  },
   "rolling-shutters": {
     title: "Rolling Shutter Photos Valsad | Pankti Engineering Work Gallery",
     description: "Iron rolling shutters for shops, garages and factories by Pankti Engineering, Valsad, Gujarat. See installed shutter photos. Manual and spring balanced. Call +91 98795-23937.",
@@ -94,69 +111,116 @@ const SEO: Record<string, { title: string; description: string; keywords: string
     description: "Large-span MS industrial sheds for factories and warehouses by Pankti Engineering, Valsad, Gujarat. PEB and conventional sheds. See work photos. Call +91 98795-23937.",
     keywords: "industrial shed valsad, factory shed valsad, warehouse shed valsad, PEB shed valsad, MS industrial shed gujarat, godown shed valsad, shed contractor valsad gujarat",
   },
-  "custom-fabrication": {
-    title: "Custom MS Fabrication Photos Valsad | Pankti Engineering",
-    description: "Custom iron and MS fabrication work by Pankti Engineering, Valsad — tanks, platforms, trolleys, structural metalwork. See completed project photos. Call +91 98795-23937.",
-    keywords: "custom fabrication valsad, MS fabrication valsad, iron fabrication valsad, structural fabrication valsad, welding workshop valsad, MS tank fabrication gujarat",
+  "ss-grill-and-door": {
+    title: "SS Grill & Door Photos Valsad | Pankti Engineering Work Gallery",
+    description: "Stainless steel (SS) grills and doors fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free SS window grills, SS gates and doors. See work photos. Call +91 98795-23937.",
+    keywords: "SS grill valsad, stainless steel door valsad, SS gate valsad, SS window grill gujarat, stainless steel fabrication valsad, SS railing valsad",
+  },
+  "railing-and-fencing": {
+    title: "Railing & Fencing Photos Valsad | Pankti Engineering Work Gallery",
+    description: "Iron and MS railings and fencing by Pankti Engineering, Valsad, Gujarat. Balcony, terrace and compound fencing for homes and factories. See work photos. Call +91 98795-23937.",
+    keywords: "railing valsad, fencing valsad, iron fencing valsad, balcony railing valsad, compound fencing gujarat, MS railing fabrication valsad",
   },
 };
 
-// URL slug helpers
-const toSlug = (name: string) => name.toLowerCase().replace(/\s+/g, "-");
-const fromSlug = (slug: string) => SERVICES.find(s => toSlug(s.name) === slug)?.name ?? null;
 
 export default function Gallery() {
   const { service: serviceSlug } = useParams<{ service?: string }>();
   const navigate = useNavigate();
 
-  const activeService = serviceSlug ? fromSlug(serviceSlug) : null;
+  const activeSvc = SERVICES.find(s => s.slug === serviceSlug) ?? null;
 
-  const [folderMap, setFolderMap]     = useState<FolderMap>({});
+  const [folderMap, setFolderMap] = useState<FolderMap>({});
   const [folderError, setFolderError] = useState("");
-  const [photos, setPhotos]           = useState<Photo[]>([]);
-  const [photoError, setPhotoError]   = useState("");
-  const [loading, setLoading]         = useState(false);
-  const [lbIdx, setLbIdx]             = useState<number | null>(null);
+  const [covers, setCovers] = useState<Record<string, string>>({});
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photoError, setPhotoError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [lbIdx, setLbIdx] = useState<number | null>(null);
+  const [toast, setToast] = useState("");
+  const touchX = useRef<number | null>(null);
 
   useEffect(() => {
     getFolderMap().then(setFolderMap).catch(e => setFolderError(e.message));
   }, []);
 
-  // Load photos whenever URL service slug or folderMap changes
+  // Card cover = newest photo of each category (cached per visit)
   useEffect(() => {
-    if (!activeService || Object.keys(folderMap).length === 0) return;
-    const fid = folderMap[activeService];
+    if (!Object.keys(folderMap).length) return;
+    const c = cached<Record<string, string>>("g_covers");
+    if (c) setCovers(c);
+    SERVICES.forEach(s => {
+      if (c?.[s.slug]) return;
+      const fid = folderFor(s, folderMap);
+      if (!fid) return;
+      getPhotos(fid, 1).then(p => {
+        if (!p[0]?.thumb) return;
+        setCovers(prev => { const n = { ...prev, [s.slug]: p[0].thumb }; store("g_covers", n); return n; });
+      }).catch(() => undefined);
+    });
+  }, [folderMap]);
+
+  useEffect(() => {
+    if (!activeSvc || Object.keys(folderMap).length === 0) return;
+    const fid = folderFor(activeSvc, folderMap);
     setPhotos([]); setPhotoError("");
-    if (!fid) { setPhotoError(`Folder "${activeService}" not found in Drive. Make sure the sub-folder name matches exactly and is shared publicly.`); return; }
+    if (!fid) { setPhotoError(`Folder for "${activeSvc.name}" not found in Drive. Create a sub-folder named "${activeSvc.folders[0]}" inside the main gallery folder and share it publicly.`); return; }
     setLoading(true);
     getPhotos(fid)
       .then(setPhotos)
       .catch(e => setPhotoError(e instanceof Error ? e.message : "Failed to load photos"))
       .finally(() => setLoading(false));
-  }, [activeService, folderMap]);
+  }, [activeSvc, folderMap]);
 
-  const openService = (name: string) => { setLbIdx(null); navigate(`/gallery/${toSlug(name)}`); };
+  useEffect(() => { window.scrollTo(0, 0); }, [serviceSlug]);
+
+  const openService = (slug: string) => { setLbIdx(null); navigate(`/gallery/${slug}`); };
   const goBack = () => navigate("/gallery");
   const prev = useCallback(() => setLbIdx(i => i !== null ? (i - 1 + photos.length) % photos.length : 0), [photos.length]);
   const next = useCallback(() => setLbIdx(i => i !== null ? (i + 1) % photos.length : 0), [photos.length]);
 
+  // Lightbox: keyboard, body-scroll lock, Back button closes it
   useEffect(() => {
+    if (lbIdx === null) return;
     const h = (e: KeyboardEvent) => {
-      if (lbIdx === null) return;
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
       if (e.key === "Escape") setLbIdx(null);
     };
+    const pop = () => setLbIdx(null);
     window.addEventListener("keydown", h);
-    return () => window.removeEventListener("keydown", h);
-  }, [lbIdx, prev, next]);
+    window.addEventListener("popstate", pop);
+    history.pushState({ lb: true }, "");
+    const old = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", h);
+      window.removeEventListener("popstate", pop);
+      document.body.style.overflow = old;
+    };
+  }, [lbIdx === null, prev, next]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const svc = SERVICES.find(s => s.name === activeService);
+  const closeLb = () => { setLbIdx(null); if (history.state?.lb) history.back(); };
+
+  async function share() {
+    const url = window.location.href;
+    const title = activeSvc ? `${activeSvc.name} work · Pankti Engineering` : "Our Work · Pankti Engineering";
+    try {
+      if (navigator.share) { await navigator.share({ title, text: "Photos of our fabrication work – Pankti Engineering, Valsad", url }); return; }
+      await navigator.clipboard.writeText(url);
+      setToast("Link copied"); setTimeout(() => setToast(""), 2000);
+    } catch { /* cancelled */ }
+  }
+
+  if (serviceSlug && !activeSvc) {
+    if (serviceSlug in LEGACY) return <Navigate to={LEGACY[serviceSlug] ? `/gallery/${LEGACY[serviceSlug]}` : "/gallery"} replace />;
+    return <Navigate to="/gallery" replace />;
+  }
+
   const seoKey = serviceSlug ?? "default";
   const seo = SEO[seoKey] ?? SEO["default"];
   const canonicalUrl = `https://www.panktiengineering.com/gallery${serviceSlug ? `/${serviceSlug}` : ""}`;
 
-  // JSON-LD structured data
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ImageGallery",
@@ -184,7 +248,9 @@ export default function Gallery() {
         <title>{seo.title}</title>
         <meta name="description" content={seo.description} />
         <meta name="keywords" content={seo.keywords} />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <link rel="canonical" href={canonicalUrl} />
+        <link rel="preconnect" href="https://www.googleapis.com" />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
         <meta property="og:url" content={canonicalUrl} />
@@ -196,208 +262,173 @@ export default function Gallery() {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      {/* ── NAV ── */}
-      <nav className="g-nav">
+      {/* ── HEADER ── */}
+      <header className="g-nav">
         <div className="g-nav-inner">
-          {activeService && (
-            <button className="g-back" onClick={goBack}>
-              <ArrowLeft size={14}/> All Services
-            </button>
+          {activeSvc ? (
+            <button className="g-iconbtn" onClick={goBack} aria-label="Back to all services"><ArrowLeft size={20}/></button>
+          ) : (
+            <a href="/" className="g-logo-wrap" aria-label="Pankti Engineering home"><img src="/logo-mark.png" alt="" className="g-logo"/></a>
           )}
           <div className="g-brand">
-            {/* Logo — using the same icon as the browser tab */}
-            <img
-              src="/favicon.ico"
-              alt="Pankti Engineering"
-              className="g-logo"
-            />
-            <div>
-              <div className="g-bname">Pankti Engineering</div>
-              <div className="g-bsub" style={{ color: svc?.color ?? "#E65100" }}>
-                {activeService ?? "Our Work Gallery"}
-              </div>
+            <div className="g-bname">{activeSvc ? activeSvc.name : "Pankti Engineering"}</div>
+            <div className="g-bsub">
+              {activeSvc ? "Pankti Engineering · Valsad" : (<><Star size={11} fill="currentColor"/> 4.9 on Google · Valsad</>)}
             </div>
           </div>
+          <button className="g-iconbtn" onClick={share} aria-label="Share this page"><Share2 size={19}/></button>
         </div>
-      </nav>
-      <div className="g-bar"/>
+      </header>
 
-      {/* ── BODY ── */}
-      <div className="g-body">
-
+      <main className="g-body">
         {folderError && (
-          <div className="g-error">
-            <strong>Drive API Error:</strong> {folderError}
-            <br/><small>Make sure the folder is shared as "Anyone with link → Viewer" and the API key has no restrictions.</small>
-          </div>
+          <div className="g-error"><strong>Could not load photos.</strong> Please check your connection and try again.</div>
         )}
 
         {/* ═══ HOME ═══ */}
-        {!activeService && (
+        {!activeSvc && (
           <div className="g-home">
-            <p className="g-subtitle">Tap a service to browse our completed work photos</p>
-
+            <div className="g-hero">
+              <h1>Our Work</h1>
+              <p>Real photos of fabrication completed across Valsad, Vapi, Navsari &amp; Umargam. Tap a category to browse.</p>
+            </div>
             <div className="g-grid">
               {SERVICES.map(s => (
-                <button
-                  key={s.name}
-                  className="g-card"
-                  onClick={() => openService(s.name)}
-                  style={{ "--acc": s.color } as React.CSSProperties}
-                >
-                  <span className="g-emoji">{s.emoji}</span>
-                  <span className="g-clabel">{s.name}</span>
+                <button key={s.slug} className="g-card" onClick={() => openService(s.slug)}>
+                  {covers[s.slug]
+                    ? <img src={covers[s.slug]} alt="" loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+                    : <span className="g-card-ph"><s.Icon size={46} strokeWidth={1.4}/></span>}
+                  <span className="g-card-shade"/>
+                  <span className="g-card-ico"><s.Icon size={18}/></span>
+                  <span className="g-card-foot">
+                    <span className="g-clabel">{s.name}</span>
+                    <span className="g-cgo"><ArrowRight size={15}/></span>
+                  </span>
                 </button>
               ))}
-            </div>
-
-            {/* Contact */}
-            <div className="g-contact">
-              <div className="g-contact-text">
-                <div className="g-clabel2">CALL / WHATSAPP</div>
-                <div className="g-cnum">98795-23937</div>
-                <div className="g-caddr">Dhamdachi, Near Gundlav, Valsad, Gujarat</div>
-              </div>
-              <div className="g-cbtns">
-                <a href="tel:+919879523937" className="g-cbtn g-cbtn-call" title="Call">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
-                  </svg>
-                </a>
-                <a href="https://wa.me/919879523937" target="_blank" rel="noreferrer" className="g-cbtn g-cbtn-wa" title="WhatsApp">
-                  <WaIcon/>
-                </a>
-              </div>
             </div>
           </div>
         )}
 
         {/* ═══ PHOTOS ═══ */}
-        {activeService && (
+        {activeSvc && (
           <div className="g-photos">
             {loading && (
-              <div className="g-state">
-                <Loader2 size={38} className="g-spin"/>
-                <p>Loading photos from Google Drive…</p>
-              </div>
+              <div className="g-pgrid">{Array.from({ length: 8 }).map((_, i) => <div key={i} className="g-pcell g-skel"/>)}</div>
             )}
             {!loading && photoError && <div className="g-error">{photoError}</div>}
-            {!loading && !photoError && photos.length === 0 && (
+            {!loading && !photoError && photos.length === 0 && Object.keys(folderMap).length > 0 && (
               <div className="g-state">
-                <ImageOff size={44} style={{opacity:.2}}/>
-                <p className="g-empty-t">No photos yet</p>
-                <p className="g-empty-s">Upload photos to the <strong>{activeService}</strong> folder in Google Drive — they'll appear here automatically.</p>
+                <ImageOff size={44} style={{ opacity: .25 }}/>
+                <p className="g-empty-t">Photos coming soon</p>
+                <p className="g-empty-s">We're adding our latest {activeSvc.name} work. Call us to see more.</p>
               </div>
             )}
             {!loading && photos.length > 0 && (
               <>
-                <p className="g-pcount">{photos.length} photo{photos.length !== 1 ? "s" : ""} · Click to enlarge</p>
+                <p className="g-pcount">{photos.length} photo{photos.length !== 1 ? "s" : ""}</p>
                 <div className="g-pgrid">
                   {photos.map((p, i) => (
-                    <div key={p.id} className="g-pcell" onClick={() => setLbIdx(i)}>
-                      <img src={p.thumb} alt={`${activeService} by Pankti Engineering Valsad`} loading="lazy"/>
-                    </div>
+                    <button key={p.id} className="g-pcell" onClick={() => setLbIdx(i)} aria-label={`Open photo ${i + 1}`}>
+                      <img src={p.thumb} alt={`${activeSvc.name} by Pankti Engineering Valsad`} loading="lazy" decoding="async" referrerPolicy="no-referrer"/>
+                    </button>
                   ))}
-                </div>
-                {/* SEO text block - visible but subtle */}
-                <div className="g-seo-text">
-                  <p>Photos of <strong>{activeService}</strong> work completed by <strong>Pankti Engineering</strong>, Dhamdachi, Valsad, Gujarat. We serve Valsad, Vapi, Navsari, Umargam and surrounding areas. Call <a href="tel:+919879523937">+91 98795-23937</a> for a free quote.</p>
                 </div>
               </>
             )}
-
-
           </div>
         )}
-      </div>
+      </main>
+
+      {toast && <div className="g-toast"><Check size={15}/> {toast}</div>}
 
       {/* ── LIGHTBOX ── */}
       {lbIdx !== null && photos[lbIdx] && (
-        <div className="g-lb" onClick={() => setLbIdx(null)}>
-          <button className="g-lb-x" onClick={() => setLbIdx(null)}><X size={20}/></button>
-          <button className="g-lb-p" onClick={e=>{e.stopPropagation();prev();}}><ChevronLeft size={28}/></button>
-          <img className="g-lb-img" src={photos[lbIdx].full} alt="" onClick={e=>e.stopPropagation()}/>
-          <button className="g-lb-n" onClick={e=>{e.stopPropagation();next();}}><ChevronRight size={28}/></button>
-          <div className="g-lb-c">{lbIdx+1} / {photos.length}</div>
+        <div
+          className="g-lb"
+          onClick={closeLb}
+          onTouchStart={e => { touchX.current = e.touches[0].clientX; }}
+          onTouchEnd={e => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            touchX.current = null;
+            if (Math.abs(dx) > 50) (dx > 0 ? prev : next)();
+          }}
+        >
+          <button className="g-lb-x" onClick={closeLb} aria-label="Close"><X size={22}/></button>
+          <button className="g-lb-p" onClick={e => { e.stopPropagation(); prev(); }} aria-label="Previous"><ChevronLeft size={28}/></button>
+          <img className="g-lb-img" src={photos[lbIdx].full} alt="" onClick={e => e.stopPropagation()} referrerPolicy="no-referrer"/>
+          <button className="g-lb-n" onClick={e => { e.stopPropagation(); next(); }} aria-label="Next"><ChevronRight size={28}/></button>
+          <div className="g-lb-c">{lbIdx + 1} / {photos.length}</div>
+          {/* preload neighbours */}
+          <img src={photos[(lbIdx + 1) % photos.length].full} alt="" style={{ display: "none" }} referrerPolicy="no-referrer"/>
         </div>
       )}
 
       <style>{`
-        *{box-sizing:border-box;margin:0;padding:0;}
-        .g-root{min-height:100vh;background:#F4F6F8;font-family:Inter,-apple-system,sans-serif;color:#1A1A1A;}
+        .g-root *{box-sizing:border-box;}
+        .g-root{min-height:100vh;min-height:100dvh;background:#F4F6F8;font-family:Inter,-apple-system,"Segoe UI",sans-serif;color:#1A1A1A;padding-bottom:84px;-webkit-tap-highlight-color:transparent;}
+        .g-root button{font-family:inherit;}
 
-        /* NAV */
-        .g-nav{background:#1A1A1A;}
-        .g-nav-inner{max-width:1100px;margin:0 auto;padding:14px 24px;}
-        .g-back{display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;padding:0;margin-bottom:10px;}
-        .g-back:hover{color:#fff;}
-        .g-brand{display:flex;align-items:center;gap:14px;}
-        .g-logo{width:44px;height:44px;object-fit:contain;}
-        .g-bname{color:#fff;font-weight:700;font-size:18px;line-height:1.2;}
-        .g-bsub{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
-        .g-bar{height:4px;background:#E65100;}
+        /* HEADER */
+        .g-nav{position:sticky;top:0;z-index:50;background:#14171C;border-bottom:3px solid #E65100;}
+        .g-nav-inner{max-width:1100px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:12px;}
+        .g-logo-wrap{width:42px;height:42px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .g-logo{height:32px;width:auto;object-fit:contain;}
+        .g-iconbtn{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.1);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+        .g-iconbtn:active{background:rgba(255,255,255,.2);}
+        .g-brand{flex:1;min-width:0;}
+        .g-bname{color:#fff;font-weight:800;font-size:17px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+        .g-bsub{color:#FFB074;font-size:11.5px;font-weight:600;margin-top:2px;display:flex;align-items:center;gap:4px;}
 
-        /* BODY */
-        .g-body{max-width:1100px;margin:0 auto;padding:0 24px 60px;}
+        .g-body{max-width:1100px;margin:0 auto;padding:0 14px;}
 
         /* HOME */
-        .g-home{padding-top:36px;}
-        .g-subtitle{text-align:center;font-size:15px;color:#607D8B;margin-bottom:28px;}
-
-        /* SERVICE GRID */
-        .g-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
-        @media(max-width:768px){.g-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
-        .g-card{background:#fff;border:2px solid #E0E0E0;border-radius:18px;padding:32px 16px 26px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:14px;transition:border-color .15s,transform .15s,box-shadow .15s;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-        .g-card:hover{border-color:var(--acc);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1);}
-        .g-emoji{font-size:38px;line-height:1;}
-        .g-clabel{font-size:14px;font-weight:700;color:#1A1A1A;text-align:center;line-height:1.3;}
-
-        /* CONTACT */
-        .g-contact{display:flex;align-items:center;justify-content:space-between;background:#1A1A1A;border-radius:16px;padding:22px 24px;}
-        .g-clabel2{color:#777;font-size:11px;letter-spacing:.07em;margin-bottom:4px;}
-        .g-cnum{color:#E65100;font-weight:800;font-size:26px;}
-        .g-caddr{color:#666;font-size:12px;margin-top:4px;}
-        .g-cbtns{display:flex;gap:10px;flex-shrink:0;}
-        .g-cbtn{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;text-decoration:none;border:none;cursor:pointer;flex-shrink:0;}
-        .g-cbtn-call{background:#E65100;color:#fff;}
-        .g-cbtn-wa{background:#25D366;color:#fff;}
+        .g-hero{padding:26px 4px 18px;text-align:center;}
+        .g-hero h1{font-size:30px;font-weight:800;letter-spacing:-.02em;}
+        .g-hero p{margin:8px auto 0;max-width:460px;font-size:14.5px;line-height:1.55;color:#607D8B;}
+        .g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+        @media(min-width:640px){.g-grid{grid-template-columns:repeat(3,1fr);gap:16px;}}
+        @media(min-width:960px){.g-grid{grid-template-columns:repeat(4,1fr);}}
+        .g-card{position:relative;aspect-ratio:4/5;border:none;padding:0;border-radius:18px;overflow:hidden;cursor:pointer;background:linear-gradient(145deg,#2A2F38,#14171C);box-shadow:0 4px 14px rgba(0,0,0,.12);transition:transform .18s,box-shadow .18s;text-align:left;}
+        .g-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.2);}
+        .g-card:active{transform:scale(.98);}
+        .g-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+        .g-card-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.18);}
+        .g-card-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.78) 100%);}
+        .g-card-ico{position:absolute;top:10px;left:10px;width:34px;height:34px;border-radius:10px;background:#E65100;color:#fff;display:flex;align-items:center;justify-content:center;}
+        .g-card-foot{position:absolute;left:12px;right:12px;bottom:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
+        .g-clabel{color:#fff;font-weight:800;font-size:15px;line-height:1.25;}
+        .g-cgo{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(4px);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 
         /* PHOTOS */
-        .g-photos{padding-top:28px;}
-        .g-pcount{font-size:13px;color:#888;margin-bottom:14px;}
-        .g-pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
-        @media(max-width:900px){.g-pgrid{grid-template-columns:repeat(4,1fr);}}
-        @media(max-width:640px){.g-pgrid{grid-template-columns:repeat(3,1fr);gap:6px;}}
-        @media(max-width:380px){.g-pgrid{grid-template-columns:repeat(2,1fr);}}
-        .g-pcell{aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;background:#ddd;}
-        .g-pcell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s;}
-        .g-pcell:hover img{transform:scale(1.06);}
+        .g-photos{padding-top:18px;}
+        .g-pcount{font-size:13px;color:#78909C;margin:0 2px 12px;font-weight:600;}
+        .g-pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+        @media(min-width:640px){.g-pgrid{grid-template-columns:repeat(3,1fr);gap:12px;}}
+        @media(min-width:960px){.g-pgrid{grid-template-columns:repeat(4,1fr);}}
+        .g-pcell{aspect-ratio:4/3;border-radius:14px;overflow:hidden;cursor:pointer;background:#DDE2E6;border:none;padding:0;display:block;}
+        .g-pcell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s;}
+        .g-pcell:hover img{transform:scale(1.05);}
+        .g-skel{animation:gpulse 1.2s ease-in-out infinite;}
+        @keyframes gpulse{0%,100%{opacity:1}50%{opacity:.45}}
 
-        /* STATES */
-        .g-state{text-align:center;padding:80px 20px;color:#888;display:flex;flex-direction:column;align-items:center;gap:14px;}
-        .g-empty-t{font-size:16px;font-weight:700;color:#555;}
-        .g-empty-s{font-size:13px;color:#999;max-width:320px;line-height:1.6;}
-        .g-error{background:#FFF3E0;border:1px solid #E65100;border-radius:12px;padding:16px 18px;font-size:13px;color:#BF360C;margin:20px 0;line-height:1.6;}
+        .g-state{text-align:center;padding:70px 20px;color:#888;display:flex;flex-direction:column;align-items:center;gap:12px;}
+        .g-empty-t{font-size:17px;font-weight:700;color:#555;}
+        .g-empty-s{font-size:13.5px;color:#90A4AE;max-width:300px;line-height:1.6;}
+        .g-error{background:#FFF3E0;border:1px solid #E65100;border-radius:12px;padding:14px 16px;font-size:13px;color:#BF360C;margin:20px 0;line-height:1.6;}
 
-        /* CTA bottom */
-        .g-cta{display:flex;align-items:center;justify-content:space-between;background:#1A1A1A;border-radius:16px;padding:20px 24px;margin-top:28px;}
-        .g-cta-label{color:#777;font-size:11px;letter-spacing:.07em;margin-bottom:4px;}
-        .g-cta-n{color:#E65100;font-weight:800;font-size:22px;}
-        .g-cta-btns{display:flex;gap:10px;}
+        .g-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#14171C;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;z-index:70;}
 
         /* LIGHTBOX */
-        .g-lb{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1000;display:flex;align-items:center;justify-content:center;}
-        .g-lb-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:8px;}
-        .g-lb-x{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);border:none;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
-        .g-lb-p,.g-lb-n{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;border-radius:50%;width:50px;height:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
-        .g-lb-p{left:14px;}.g-lb-n{right:14px;}
-        .g-lb-c{position:absolute;bottom:18px;color:rgba(255,255,255,.6);font-size:13px;}
-        .g-spin{animation:spin 1s linear infinite;}
-        @keyframes spin{to{transform:rotate(360deg);}}
-        .g-seo-text{margin-top:28px;padding:16px 20px;background:#fff;border-radius:12px;border:1px solid #E0E0E0;font-size:13px;color:#888;line-height:1.7;}
-        .g-seo-text strong{color:#607D8B;}
-        .g-seo-text a{color:#E65100;text-decoration:none;}
-        .g-seo-text a:hover{text-decoration:underline;}
+        .g-lb{position:fixed;inset:0;background:#000;z-index:1000;display:flex;align-items:center;justify-content:center;touch-action:pan-y;}
+        .g-lb-img{max-width:100vw;max-height:86vh;max-height:86dvh;object-fit:contain;}
+        @media(min-width:700px){.g-lb-img{max-width:90vw;border-radius:8px;}}
+        .g-lb-x{position:absolute;top:calc(14px + env(safe-area-inset-top));right:14px;background:rgba(255,255,255,.16);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+        .g-lb-p,.g-lb-n{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.16);border:none;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+        .g-lb-p{left:12px;}.g-lb-n{right:12px;}
+        @media(max-width:700px){.g-lb-p,.g-lb-n{display:none;}}
+        .g-lb-c{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom));color:rgba(255,255,255,.7);font-size:13px;font-weight:600;}
       `}</style>
     </div>
   );
