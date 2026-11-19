@@ -20,7 +20,7 @@ const SERVICES: Service[] = [
   { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed },
   { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3 },
   { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck },
-  { name: "SS Doors",          slug: "ss-doors",           folders: ["SS Doors", "SS Door"],                                Icon: DoorOpen },
+  { name: "Doors",             slug: "doors",              folders: ["Doors", "Door"],                                Icon: DoorOpen },
   { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers },
   { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence },
   { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse },
@@ -29,7 +29,7 @@ const SERVICES: Service[] = [
 ];
 
 // Old links that may still be shared / indexed
-const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "", "ss-grill-and-door": "ss-grills" };
+const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "", "ss-grill-and-door": "ss-grills", "ss-doors": "doors" };
 
 type Photo = { id: string; name: string; thumb: string; full: string };
 type FolderMap = Record<string, string>;
@@ -117,10 +117,10 @@ const SEO: Record<string, { title: string; description: string; keywords: string
     description: "Stainless steel (SS) window and balcony grills fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free, long-lasting SS grill designs. See work photos. Call +91 98795-23937.",
     keywords: "SS grill valsad, stainless steel grill valsad, SS window grill gujarat, SS balcony grill valsad, stainless steel fabrication valsad",
   },
-  "ss-doors": {
-    title: "SS Door Photos Valsad | Pankti Engineering Work Gallery",
-    description: "Stainless steel (SS) doors and gates fabricated by Pankti Engineering, Valsad, Gujarat. Rust-free SS main doors, safety doors and gates. See work photos. Call +91 98795-23937.",
-    keywords: "SS door valsad, stainless steel door valsad, SS main door gujarat, SS safety door valsad, stainless steel gate valsad",
+  doors: {
+    title: "Door Photos Valsad | Pankti Engineering Work Gallery",
+    description: "Iron and MS doors fabricated by Pankti Engineering, Valsad, Gujarat. Main doors, safety doors and industrial doors. See work photos. Call +91 98795-23937.",
+    keywords: "iron door valsad, MS door valsad, safety door valsad, main door fabrication gujarat, steel door valsad",
   },
   "railing-and-fencing": {
     title: "Railing & Fencing Photos Valsad | Pankti Engineering Work Gallery",
