@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   ArrowLeft, X, ChevronLeft, ChevronRight, ImageOff, Share2, Star,
-  DoorClosed, DoorOpen, Grid3x3, Layers, Warehouse, Rows3, Factory, ShieldCheck, Fence, ArrowRight, Check,
+  DoorClosed, DoorOpen, Grid3x3, Layers, Warehouse, Factory, ShieldCheck, Fence, ArrowRight, Check,
 } from "lucide-react";
 import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -20,17 +20,16 @@ type Service = {
 const SERVICES: Service[] = [
   { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed, desc: "Sliding, swing & compound gates" },
   { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3, desc: "Plain & decorative MS grills" },
-  { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck, desc: "Rust-free stainless steel grills" },
   { name: "Doors",             slug: "doors",              folders: ["Doors", "Door"],                                Icon: DoorOpen, desc: "Main, safety & industrial doors" },
   { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers, desc: "Staircase, balcony & terrace" },
   { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence, desc: "Railings & compound fencing" },
   { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse, desc: "Home, parking & factory sheds" },
-  { name: "Rolling Shutters",   slug: "rolling-shutters",   folders: ["Rolling Shutters"],                                   Icon: Rows3, desc: "Shops, garages & factories" },
   { name: "Industrial Sheds",   slug: "industrial-sheds",   folders: ["Industrial Sheds"],                                   Icon: Factory, desc: "PEB & conventional factory sheds" },
+  { name: "SS Grills",         slug: "ss-grills",          folders: ["SS Grills", "SS Grill"],                              Icon: ShieldCheck, desc: "Rust-free stainless steel grills" },
 ];
 
 // Old links that may still be shared / indexed
-const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "", "ss-grill-and-door": "ss-grills", "ss-doors": "doors" };
+const LEGACY: Record<string, string> = { "custom-fabrication": "railing-and-fencing", "boundary-walls": "", "ss-grill-and-door": "ss-grills", "ss-doors": "doors", "rolling-shutters": "" };
 
 type Photo = { id: string; name: string; thumb: string; full: string };
 type FolderMap = Record<string, string>;
@@ -78,7 +77,7 @@ async function getPhotos(folderId: string, pageSize = 100): Promise<Photo[]> {
 const SEO: Record<string, { title: string; description: string; keywords: string }> = {
   default: {
     title: "Our Work Gallery | Pankti Engineering – Iron Fabrication Valsad",
-    description: "Browse completed iron and MS fabrication work by Pankti Engineering, Valsad. See real photos of gates, window grills, staircase railings, roofing sheds, rolling shutters and more. 4.9★ rated workshop in Valsad, Gujarat.",
+    description: "Browse completed iron and MS fabrication work by Pankti Engineering, Valsad. See real photos of gates, window grills, staircase railings, roofing sheds, sheds and more. 4.9★ rated workshop in Valsad, Gujarat.",
     keywords: "iron fabrication photos valsad, pankti engineering work photos, iron gate photos valsad, MS fabrication gallery, fabrication workshop valsad gujarat",
   },
   gates: {
@@ -100,11 +99,6 @@ const SEO: Record<string, { title: string; description: string; keywords: string
     title: "Roofing Shed Photos Valsad | Pankti Engineering Work Gallery",
     description: "MS frame roofing sheds for homes, car parking and factories by Pankti Engineering, Valsad, Gujarat. See completed shed photos. Colour-coated roofing sheet. Call +91 98795-23937.",
     keywords: "roofing shed valsad, MS shed valsad, car parking shed valsad, factory shed valsad, shed fabrication valsad, iron shed gujarat, shed contractor valsad",
-  },
-  "rolling-shutters": {
-    title: "Rolling Shutter Photos Valsad | Pankti Engineering Work Gallery",
-    description: "Iron rolling shutters for shops, garages and factories by Pankti Engineering, Valsad, Gujarat. See installed shutter photos. Manual and spring balanced. Call +91 98795-23937.",
-    keywords: "rolling shutter valsad, iron shutter valsad, shop shutter valsad, rolling shutter fabrication valsad, garage shutter valsad, MS shutter gujarat",
   },
   "industrial-sheds": {
     title: "Industrial Shed Photos Valsad | Pankti Engineering Work Gallery",
