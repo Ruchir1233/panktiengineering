@@ -21,7 +21,7 @@ const SERVICES: Service[] = [
   { name: "Gates",              slug: "gates",              folders: ["Gates"],                                              Icon: DoorClosed, desc: "Sliding, swing & compound gates" },
   { name: "Window Grills",      slug: "window-grills",      folders: ["Window Grills"],                                      Icon: Grid3x3, desc: "Plain & decorative MS grills" },
   { name: "Doors",             slug: "doors",              folders: ["Doors", "Door"],                                Icon: DoorOpen, desc: "Main, safety & industrial doors" },
-  { name: "Staircase Railings", slug: "staircase-railings", folders: ["Staircase Railings"],                                 Icon: Layers, desc: "Staircase, balcony & terrace" },
+  { name: "Staircase",         slug: "staircase-railings", folders: ["Staircase", "Staircase Railings"],                                 Icon: Layers, desc: "Staircase, balcony & terrace" },
   { name: "Railing & Fencing",  slug: "railing-and-fencing",folders: ["Railing and Fencing", "Railing & Fencing", "Railings and Fencing", "Custom Fabrication"], Icon: Fence, desc: "Railings & compound fencing" },
   { name: "Roofing Sheds",      slug: "roofing-sheds",      folders: ["Roofing Sheds"],                                      Icon: Warehouse, desc: "Home, parking & factory sheds" },
   { name: "Industrial Sheds",   slug: "industrial-sheds",   folders: ["Industrial Sheds"],                                   Icon: Factory, desc: "PEB & conventional factory sheds" },
